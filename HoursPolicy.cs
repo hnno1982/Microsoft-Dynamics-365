@@ -1,0 +1,76 @@
+﻿using System;
+using System.Activities;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Workflow;
+
+namespace Project.Operation.Hani.Adel.Hours.Policy
+{
+    public class HoursPolicy : CodeActivity
+    {
+        [Input("Owner ID")]
+        [ReferenceTarget("systemuser")]
+        public InArgument<EntityReference> OwnerID { get; set; }
+
+        [RequiredArgument]
+        [Input("Date Entry")]
+        public InArgument<DateTime> DateEntry { get; set; }
+
+        [Output("Exceed or not")]
+        public OutArgument<bool> Exceed { get; set; }
+
+        protected override void Execute(CodeActivityContext executionContext)
+        {
+            IWorkflowContext context = executionContext.GetExtension<IWorkflowContext>();
+            IOrganizationServiceFactory serviceFactory = executionContext.GetExtension<IOrganizationServiceFactory>();
+            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+
+            //Get the owner id Guid  
+            EntityReference ONRID = OwnerID.Get<EntityReference>(executionContext);
+            string ONRIDStr = ONRID.Id.ToString();
+
+            //Get the date and format it and adding 3 hours to date to get exact selected date
+            DateTime DFOR = DateEntry.Get<DateTime>(executionContext);
+            DateTime AH2Date = DFOR.AddHours(3);
+            string FormattedDate = AH2Date.Date.ToString("yyyy-MM-dd");
+
+            Exceed.Set(executionContext, false);
+
+            string xml = "<fetch distinct='false' version='1.0' output-format='xml-platform' mapping='logical' no-lock='true' aggregate='true'>" +
+                             "<entity name='msdyn_timeentry'>" +
+                                   "<attribute name='msdyn_duration' alias='dursum' aggregate='sum' />" +
+                                     "<filter type='and'>" +
+                                         "<condition attribute='ownerid' operator='eq' value= '{" + ONRIDStr + "}' />" +
+                                         "<condition attribute='msdyn_date' operator='eq' value= '" + FormattedDate + "' />" +
+                                     "</filter>" +
+                             "</entity>" +
+                         "</fetch>";
+
+            //  string xml = @"<fetch distinct='true' mapping='logical' output-format='xml-platform' version='1.0'>
+            //    <entity name='msdyn_timeentry'>
+            //        <attribute name='msdyn_duration'/>
+            //        //<attribute name='msdyn_duration' alias='duration' aggregate='sum' /> 
+            //        <filter type='and'> 
+            //            <condition attribute='ownerid' operator='eq' value= '{" + ONRIDStr + @"}' />
+            //            <condition attribute='msdyn_date' operator='eq' value= '" + FormattedDate + @"' />
+            //        </filter> 
+            //    </entity>
+            //</fetch>";
+
+            //if (service.RetrieveMultiple(new FetchExpression(xml)).Entities.Count > 0)
+            //    pop.Set(executionContext, true);
+
+            EntityCollection result = service.RetrieveMultiple(new FetchExpression(xml));
+            Int32 rn = 0;
+            foreach (var c in result.Entities)
+            {
+                Int32 totalCurrentYear = ((Int32)((AliasedValue)c["dursum"]).Value);
+                rn += totalCurrentYear;
+            }
+
+            if (rn > 481)
+                Exceed.Set(executionContext, true);
+
+        }
+    }
+}
