@@ -1,0 +1,99 @@
+//set name text
+function expschool()
+{
+    var subvalue;
+    if (Xrm.Page.context.client.getClient() != "Mobile")
+    {
+        var lookupObjValue1 = Xrm.Page.getAttribute("new_account");
+
+        if (lookupObjValue1 != null && lookupObjValue1 != "")
+        {
+            var interestcategor = lookupObjValue1.getValue();//Check for Lookup Value
+        }
+
+        else if (lookupObjValue1 == "")
+        {
+            Xrm.Page.getAttribute("new_account").setValue(null);
+        }
+
+        if (interestcategor != null && interestcategor != "")
+        {
+            var lookupRecordName1 = interestcategor[0].name; //To get record Name
+        }
+        else if (interestcategor == "")
+        {
+            Xrm.Page.getAttribute("new_account").setValue(null);
+        }
+
+        var sub = "";
+        if (lookupRecordName1 != null && lookupRecordName1 != "")
+        {
+            try {
+                var lookupData = new Array();
+                var lookupItem = new Object();
+                var lookup = Xrm.Page.data.entity.attributes.get("new_account"); //new_account
+
+                if (lookup != null || lookup != 'undefined' || lookup != '') {
+                    //if (lookup != null) {
+
+                    var displayvalue = '';
+                    var xmlText = '';
+
+                    xmlText += "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">"; xmlText += "<s:Body>";
+                    xmlText += "<Retrieve xmlns=\"http://schemas.microsoft.com/xrm/2011/Contracts/Services\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">";
+                    xmlText += "<entityName>account</entityName>"; //account
+                    xmlText += "<id>" + lookup.getValue()[0].id + "</id>";
+                    xmlText += "<columnSet xmlns:a=\"http://schemas.microsoft.com/xrm/2011/Contracts\">";
+                    xmlText += "<a:AllColumns>false</a:AllColumns>";
+                    xmlText += "<a:Columns xmlns:b=\"http://schemas.microsoft.com/2003/10/Serialization/Arrays\">";
+                    xmlText += "<b:string>new_enaccountname</b:string>"; //new_enaccountname
+                    xmlText += "</a:Columns>";
+                    xmlText += "</columnSet>";
+                    xmlText += "</Retrieve>";
+                    xmlText += "</s:Body>";
+                    xmlText += "</s:Envelope>";
+                    var xHReq = new XMLHttpRequest();
+
+
+                    var url = Xrm.Page.context.getClientUrl() + "/XRMServices/2011/Organization.svc/web";
+                    xHReq.open("POST", url, false);
+                    xHReq.setRequestHeader("SOAPAction", "http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/Retrieve");
+                    xHReq.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+                    xHReq.setRequestHeader("Accept", "application/xml,text/xml,*/*");
+                    xHReq.send(xmlText);
+
+                    //Capture the result. 
+                    var resultXml = xHReq.responseXML;
+                    var varray = new Array();
+
+                    //Check forerrors. 
+
+                    var result = resultXml.getElementsByTagName("a:KeyValuePairOfstringanyType");
+                    if (result.length > 0) {
+                        displayvalue = result[0].childNodes[1].lastChild.data;
+                    }
+                    if (displayvalue != '') {
+                        lookupItem.name = displayvalue;
+                        lookupData[0] = lookupItem;
+                        lookup.DataValue = lookupData;
+                        Xrm.Page.getAttribute("new_account").
+                            setValue([{
+                                id: lookup.getValue()[0].id,
+                                name: displayvalue, entityType: "account"
+                            }]); // new_account 
+                        //account
+
+                    }
+                    sub += lookup.getValue()[0].name
+                }
+
+            }
+
+            catch (Error)
+            { }
+        }
+
+        subvalue = sub
+    }
+    Xrm.Page.getAttribute("new_name").setValue(subvalue);
+}

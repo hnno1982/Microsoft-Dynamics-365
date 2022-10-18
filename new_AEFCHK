@@ -1,0 +1,84 @@
+function AEFCHK()
+{
+    debugger;
+    //try
+    //{
+        var time = 10000; //Display time in milliseconds (5)
+        var ASTRN = Xrm.Page.getAttribute("new_afchk");
+        if (ASTRN != null && ASTRN != undefined)
+        {
+                var ASTRNG = ASTRN.getValue()
+                if (ASTRNG != 4)
+                {
+                    Xrm.Page.getControl("fullname").setNotification("The arabic full name should be based on the name of the passport or civil ID)");
+                    Xrm.Page.ui.setFormNotification("The arabic full name should be based on the name of the passport or civil ID)", "INFO", "1");
+                    setTimeout
+                    (
+                    function ()
+                    {
+                        Xrm.Page.getControl("fullname").clearNotification();
+                        //Xrm.Page.ui.clearFormNotification("1");
+                    },
+                    time
+                    );
+
+                }
+                else
+                {
+                    //Xrm.Page.getControl("fullname").clearNotification();
+                    //Xrm.Page.ui.clearFormNotification("1");
+
+                    setTimeout
+                    (
+                    function ()
+                    {
+                        Xrm.Page.getControl("fullname").clearNotification();
+                        //Xrm.Page.ui.clearFormNotification("1");
+                    },
+                    time
+                    );
+
+                }
+         }
+
+        var ESTRN = Xrm.Page.getAttribute("new_efchk");
+        if (ESTRN != null && ESTRN != undefined)
+        {       
+                var ESTRNG = ESTRN.getValue()
+                if (ESTRNG != 4)
+                {
+                    Xrm.Page.getControl("new_enfullname").setNotification("English full name (The english full name should be based on the name of the passport or civil ID)");
+                    Xrm.Page.ui.setFormNotification("The english full name should be based on the name of the passport or civil ID)", "INFO", "2");
+
+                    setTimeout
+                    (
+                    function ()
+                    {
+                        Xrm.Page.getControl("new_enfullname").clearNotification();
+                        //Xrm.Page.ui.clearFormNotification("2");
+                    },
+                    time
+                    );
+
+                }
+                else
+                {
+                    //Xrm.Page.getControl("new_enfullname").clearNotification();
+                    //Xrm.Page.ui.clearFormNotification("2");
+
+                    setTimeout
+                    (
+                    function ()
+                    {
+                    Xrm.Page.getControl("new_enfullname").clearNotification();
+                    Xrm.Page.ui.clearFormNotification("2");
+                    },
+                    time
+                    );
+
+                }
+        }
+    //}
+    //catch (Error)
+    //{ }
+}

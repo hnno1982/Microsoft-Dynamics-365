@@ -1,0 +1,19 @@
+function interfromrespon()
+{
+    var formType = Xrm.Page.ui.getFormType(); //get the form type
+    var entity = Xrm.Page.data.entity.getEntityName();
+
+
+    if (formType != 1)
+    {
+        if (entity != "campaignresponse")
+        {
+            return false; // Hide button
+        }
+
+        //else
+        //{
+        //    return true; //Show button
+        //}
+    }
+}

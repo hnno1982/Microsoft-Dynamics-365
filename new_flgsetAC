@@ -1,0 +1,41 @@
+function flagstAC() 
+{		
+    try
+    {
+		var flg = Xrm.Page.getAttribute("new_flag").getValue() ;
+                var flg2 = Xrm.Page.getAttribute("new_flg2").getValue() ;
+                var flg4 = Xrm.Page.getAttribute("new_flg4").getValue() ;
+
+		if (flg == 1 && flg2 != 3 && flg4 != 4 ) 
+		{
+                     Xrm.Page.ui.setFormNotification("***يرجى طلب عمل تعديل على البيانات***","INFO","1");
+		}
+		
+		else if (flg == 0 && flg2 != 3 && flg4 != 4 ) 
+		{
+                    Xrm.Page.ui.clearFormNotification("1");
+		}
+
+		else if (flg2 == 3 && flg4 != 4) 
+		{
+                    Xrm.Page.ui.clearFormNotification("1");
+		  Xrm.Page.ui.controls.get("new_requestforupdate").setDisabled(true)
+		}
+
+		else if (flg4 == 4) 
+		{
+                     Xrm.Page.ui.setFormNotification("***يوجد طلب تعديل بيانات تحت التنفيذ***","INFO","1");
+		  Xrm.Page.ui.controls.get("new_requestforupdate").setDisabled(true)
+onSave()
+		}
+
+    }
+
+    catch(ex)
+    {}
+}
+
+
+
+
+

@@ -1,0 +1,10 @@
+function dirtyv2(){
+
+//Xrm.Page.getAttribute("suffix").setSubmitMode("always");
+//Xrm.Page.getAttribute("firstname").setSubmitMode("always");
+//Xrm.Page.getAttribute("lastname").setSubmitMode("always");
+//Xrm.Page.getAttribute("fullname").setSubmitMode("always");
+Xrm.Page.getAttribute("accountrolecode").setSubmitMode("always");
+}
+
+

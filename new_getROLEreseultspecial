@@ -1,0 +1,96 @@
+function getROLEreseult()
+{
+    try
+    {
+    // Get the ID of the Customer 
+    var fortype1 = Xrm.Page.getAttribute("new_contactname").getValue()[0].name;
+    var fortype2 = Xrm.Page.getAttribute("new_contactname").getValue()[0].id;
+    var sFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+    "<entity name='contact'>" +
+    "<attribute name='accountrolecode' />" +
+    "<filter type='and'>" +
+    "<condition attribute='contactid' operator='eq' uiname='" + fortype1 + "' uitype='contact' value='" + fortype2 + "'/>" +
+    "</filter></entity>" +
+    "</fetch>";
+    var encodedFetchXml = encodeURI(sFetch);
+    var queryPath = "/api/data/v8.0/contacts?fetchXml=" + encodedFetchXml;
+    var requestPath = Xrm.Page.context.getClientUrl() + queryPath;
+    var req = new XMLHttpRequest();
+    req.open("GET", requestPath, true);
+    req.setRequestHeader("Accept", "application/json");
+    req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    req.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            this.onreadystatechange = null;
+            if (this.status === 200) {
+                var returned = JSON.parse(this.responseText);
+                var results = returned.value;
+                for (var i = 0; i < results.length; i++) {
+                    var conrole = results[i]["accountrolecode"];
+                    //alert(conrole);
+                    //alert(results[0].attributes["accountrolecode"].value); 
+
+                    getOSlable(conrole);
+                    //var rolresult = getOSlable(conrole);
+                    //alert(rolresult);
+
+                }
+            }
+            else {
+                alert(this.statusText);
+            }
+        }
+    };
+    req.send();
+    }
+
+    catch (Error)
+    { }
+}
+
+function getOSlable(rolelbl) {
+
+    try
+    {
+    var sFetch2 = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+    "<entity name='stringmap'>" +
+    "<attribute name='value' />" +
+    "<filter type='and'>" +
+    "<condition attribute='attributename' operator='eq' value='accountrolecode' />" +
+    "<condition attribute='attributevalue' operator='eq' value='" + rolelbl + "' />" +
+    "</filter></entity>" +
+    "</fetch>";
+
+
+    var encodedFetchXml2 = encodeURI(sFetch2);
+    var queryPath2 = "/api/data/v8.0/stringmaps?fetchXml=" + encodedFetchXml2;
+    var requestPath2 = Xrm.Page.context.getClientUrl() + queryPath2;
+    var req2 = new XMLHttpRequest();
+    req2.open("GET", requestPath2, true);
+    req2.setRequestHeader("Accept", "application/json");
+    req2.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    req2.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            this.onreadystatechange = null;
+            if (this.status === 200) {
+                var returnedi = JSON.parse(this.responseText);
+                var resultsi = returnedi.value;
+                for (var ii = 0; ii < resultsi.length; ii++) {
+                    var conrole2 = resultsi[ii]["value"];
+                    Xrm.Page.getControl("new_contactname").setLabel(conrole2 + " name");
+                    //alert(conrole2);  
+                    //return true;          
+
+                }
+            }
+            else {
+                alert(this.statusText);
+            }
+        }
+    };
+    req2.send();
+    }
+
+    catch (Error)
+    { }
+}

@@ -1,0 +1,35 @@
+function checkerACC() {
+    var lookupObj = Xrm.Page.getAttribute("new_industrytype"); //Check for Lookup Object
+    if (lookupObj != null) {
+        var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+        if (lookupObjValue == null || lookupObjValue == 'undefined' || lookupObjValue == '') {
+            try
+            {
+                var formType = Xrm.Page.ui.getFormType();
+                if (formType != 1)
+                {
+                var Accountname = Xrm.Page.getAttribute("name").getValue(); //Check for Lookup Object
+                if (Accountname != null || Accountname != 'undefined' || Accountname != '') {
+                    Xrm.Page.ui.setFormNotification(" القطاع الإقتصادي لحساب " + Accountname + " لم يحدد بعد قم بطلب تحديد القطاع المناسب لهذا الحساب ", "ERROR", "1");
+
+                    Xrm.Page.ui.setFormNotification(" لتعديل القطاع الإقتصادي لحساب " + Accountname + " يرجى التواصل مع أ/إكتمال ", "INFO", "2");
+                }
+
+                else {
+                    Xrm.Page.ui.setFormNotification(" لتعديل القطاع الإقتصادي لحساب " + Accountname + " يرجى التواصل مع أ/إكتمال ", "ERROR", "1");
+                    //Alert("Accountname")
+                }
+
+            }
+        }
+
+            catch (Error)
+            { }
+        }
+
+        else {
+            Xrm.Page.ui.clearFormNotification("1"); Xrm.Page.ui.clearFormNotification("2");
+        }
+    }
+}
+

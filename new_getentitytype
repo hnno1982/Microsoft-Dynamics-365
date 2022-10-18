@@ -1,0 +1,21 @@
+function getentitytype() {
+    var enty = Xrm.Page.getAttribute("new_entitype").getValue();
+    if (enty == null || enty == undefined || enty == '')
+    {
+        var lookupObj = Xrm.Page.getAttribute("new_customer"); //Check for Lookup Object
+        if (lookupObj != null && lookupObj != undefined) {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+            if (lookupObjValue != null && lookupObjValue != undefined) {
+                try {
+                    var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                    lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                    lookupRecordName = lookupObjValue[0].name; //To get record Name 
+                    Xrm.Page.getAttribute("new_entitype").setValue(lookupEntityType);
+                }
+                catch (ex)
+                { Xrm.Page.getAttribute("new_entitype").setValue(null); }
+            }
+            else { Xrm.Page.getAttribute("new_entitype").setValue(null); }
+        }
+    }
+}

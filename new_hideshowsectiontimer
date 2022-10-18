@@ -1,0 +1,15 @@
+function hideshowsectiontimer() {
+
+    var lookupObjdir = Xrm.Page.getAttribute("new_programname").getValue();
+    var lookupObjdirpc = Xrm.Page.getAttribute("new_certificatename").getValue();
+
+    if ((lookupObjdir != null && lookupObjdir != 'undefined' && lookupObjdir != '') || (lookupObjdirpc != null && lookupObjdirpc != 'undefined' && lookupObjdirpc != '')) {
+        Xrm.Page.ui.tabs.get("Summary").sections.get("timersection").setVisible(false);
+        Xrm.Page.ui.tabs.get("Summary").sections.get("timersectioncors").setVisible(true);
+    }
+
+    if ((lookupObjdir == null || lookupObjdir == 'undefined' || lookupObjdir == '') && (lookupObjdirpc == null || lookupObjdirpc == 'undefined' || lookupObjdirpc == '')) {
+        Xrm.Page.ui.tabs.get("Summary").sections.get("timersection").setVisible(true);
+        Xrm.Page.ui.tabs.get("Summary").sections.get("timersectioncors").setVisible(false);
+    }
+}

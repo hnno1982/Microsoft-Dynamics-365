@@ -1,0 +1,101 @@
+function DisableSubGridNewButton2() {
+
+    var noopportunitiy = Xrm.Page.getAttribute("new_noopportunitiy").getValue();
+    var oppfor = Xrm.Page.getAttribute("new_for").getValue();
+    var addit = Xrm.Page.getAttribute("description").getValue();
+
+
+    if (noopportunitiy == 1)
+    {
+
+        if (oppfor == 100000000) //Consulting
+        {
+
+            if (addit != null) //Consulting
+            {
+                alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالإستشارات لهذا الكيان" + "\n" + addit);
+                Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Consulting opportunities as per DP request. ", "WARNING")
+                Xrm.Page.getControl("description").setFocus();
+            }
+
+            else {
+                alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالإستشارات لهذا الكيان");
+                Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Consulting opportunities as per DP request. ", "WARNING")
+            }
+
+        }
+
+        else if (oppfor == 100000001) //Traninig
+        {
+
+            if (addit != null) //Consulting
+            {
+                alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالتدريب لهذا الكيان" + "\n" + addit);
+                Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Traninig opportunities as per DP request. ", "WARNING")
+                Xrm.Page.getControl("description").setFocus();
+            }
+
+            else {
+                alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالتدريب لهذا الكيان");
+                Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Traninig opportunities as per DP request. ", "WARNING")
+            }
+
+
+        }
+
+
+
+
+
+else if (oppfor == 100000003) //Assurance
+{
+    if (addit != null) //Assurance
+    {
+        alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بمجال التأكيد لهذا الكيان" + "\n" + addit);
+        Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Assurance opportunities as per DP request. ", "WARNING")
+        Xrm.Page.getControl("description").setFocus();
+    }
+
+    else {
+        alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بمجال التأكيد لهذا الكيان");
+        Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Assurance opportunities as per DP request. ", "WARNING")
+    }
+}
+
+
+
+        else if (oppfor == 100000002) //Consulting & Traninig 
+        {
+
+            if (addit != null) //Consulting
+            {
+                alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالإستشارات أو حتى التدريب لهذا الكيان" + "\n" + addit);
+                Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Consulting or even Traning opportunities as per DP request. ", "WARNING")
+                Xrm.Page.getControl("description").setFocus();
+            }
+
+            else {
+                alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالإستشارات أو حتى التدريب لهذا الكيان");
+                Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Consulting or even Traning opportunities as per DP request. ", "WARNING")
+            }
+
+        }
+
+        else { }
+
+        Xrm.Page.getAttribute("new_for").setRequiredLevel("required"); // Business Required
+
+
+    }
+
+    else
+    {
+        if (addit != null) //Description
+        {
+            alert(addit);
+            Xrm.Page.ui.setFormNotification(addit, "WARNING")
+            Xrm.Page.getControl("description").setFocus();
+        }
+    }
+}
+

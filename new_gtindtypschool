@@ -1,0 +1,31 @@
+function gtindtypschool(lookupSchemaName1, lookupSchemaName2) {
+    try {
+        var lookupObj = Xrm.Page.getAttribute(lookupSchemaName1); //Check for Lookup Object1
+        var lookupObj2 = Xrm.Page.getAttribute(lookupSchemaName2); //Check for Lookup Object1
+
+        var RecordName = Xrm.Page.getAttribute("new_schoolsowned").getValue();
+        //alert(RecordName)
+
+        if (lookupObj != null && lookupObj != 'undefined' && lookupObj != '' && lookupObj2 != null && lookupObj2 != 'undefined' && lookupObj2 != '') {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value1
+            var lookupObjValue2 = lookupObj2.getValue();//Check for Lookup Value1
+            if (lookupObjValue != null && lookupObjValue != 'undefined' && lookupObjValue != "" && lookupObjValue != '' && lookupObjValue2 != null && lookupObjValue2 != 'undefined' && lookupObjValue2 != "" && lookupObjValue2 != '') {
+                if (lookupObjValue[0].name == "الشركات التعليمية" || RecordName > 0) {
+                    Xrm.Page.ui.tabs.get("tab_4").setVisible(true);
+                }
+                else if (lookupObjValue[0].name != "الشركات التعليمية" || lookupObjValue[0].name == "" || lookupObjValue[0].name == '' || lookupObjValue[0].name == null || lookupObjValue == null || lookupObjValue == "" || RecordName <= 0) {
+                    Xrm.Page.ui.tabs.get("tab_4").setVisible(false);
+                }
+            }
+
+            else if (lookupObjValue == null || lookupObjValue == 'undefined' || lookupObjValue == "" || lookupObjValue[0].name != "الشركات التعليمية" || lookupObjValue[0].name == "" || lookupObjValue[0].name == '' || lookupObjValue[0].name == null || RecordName <= 0) {
+                Xrm.Page.ui.tabs.get("tab_4").setVisible(false);
+            }
+        }
+
+        else {
+            Xrm.Page.ui.tabs.get("tab_4").setVisible(false);
+        }
+    }
+    catch (e) { Xrm.Page.getAttribute(lookupSchemaName1).setValue(null); }
+}

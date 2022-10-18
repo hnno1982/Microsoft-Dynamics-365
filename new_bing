@@ -1,0 +1,15 @@
+
+
+//Function to pass the compatitor name to bing search engine
+function setiFrameUrl(lookupAttribute)
+{
+
+    var compname = Xrm.Page.getAttribute(lookupAttribute).getValue();
+    if(compname != "")
+    {
+        var url = 'https://www.bing.com/';
+        var param1 = url+"search?q="+compname;
+        Xrm.Page.getControl('IFRAME_bing').setSrc(param1);
+    }
+    
+}

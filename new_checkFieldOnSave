@@ -1,0 +1,10 @@
+function checkFieldOnSave() {
+    var attributes = Xrm.Page.data.entity.attributes.get();
+    for (var i in attributes) {
+        var attribute = attributes[i];
+        if (attribute.getIsDirty())
+            alert("attribute dirty: " + attribute.getName());
+    }
+//Xrm.Page.getAttribute.setSubmitMode("always"); 
+Xrm.Page.data.save();
+}

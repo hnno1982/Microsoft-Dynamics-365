@@ -1,0 +1,22 @@
+function iscompatitorIcons(rowVal, userlcid) {
+ var imageName = "";
+ var tooltipValue = "";
+ var resultarray = null;
+ try {
+ var row = JSON.parse(rowVal);
+ var rdata = row.new_competitor_Value;
+ 
+ if (rdata == 1) {
+ imageName = "new_/images/compatitorIcons.png";
+ tooltipValue = "Compatitor Company";
+ }
+// else {
+ // imageName = "new_Support";
+ // tooltipValue = "Support";
+ // }
+ resultarray = [imageName, tooltipValue];
+ } catch (e) {
+ console.log(e);
+ }
+ return resultarray;
+}

@@ -1,0 +1,20 @@
+function getsetmandatoryPC()
+{
+        var lookup = Xrm.Page.getAttribute("new_degreeofcertificate").getValue();
+
+        if (lookup == null){
+        //lock your second field here
+        return;
+        }
+
+        if (lookup[0].id == "{811EF2F2-E0DC-E811-8104-0050568D7281}" || lookup[0].id == "{2C0616AE-E0DC-E811-8104-0050568D7281}")
+        {
+            //set not bussines requierd
+            Xrm.Page.getAttribute("new_specialization").setRequiredLevel("none"); // not Business Required        
+        } 
+        else 
+        {
+            //set  bussines requierd
+            Xrm.Page.getAttribute("new_specialization").setRequiredLevel("none"); //  Business Required
+        }
+}

@@ -1,0 +1,17 @@
+function eslookupstgt(lookupSchemaName1, lookupSchemaName2)
+{
+    try {
+        var lookupObj = Xrm.Page.getAttribute(lookupSchemaName1); //Check for Lookup Object
+        if (lookupObj != null || lookupObj != 'undefined' || lookupObj != '') {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+            if (lookupObjValue != null) {
+                var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                lookupRecordName = lookupObjValue[0].name; //To get record Name 
+                Xrm.Page.getAttribute(lookupSchemaName2).setValue([{ id: lookupRecordGuid, name: lookupRecordName, entityType: lookupEntityType }]);
+            }
+        }
+    }
+
+    catch (e) { }
+}

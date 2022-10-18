@@ -1,0 +1,32 @@
+function hidesomrols() {
+    //if (Xrm.Page.ui.getFormType() == 1)  //Check if the form type is not create form
+    //{
+
+    var lblForm;
+    lblForm = "";
+    if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() == "Lecturer") {
+        Xrm.Page.getControl("accountrolecode").removeOption(1);
+        Xrm.Page.getControl("accountrolecode").removeOption(3);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000001);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000002);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000003);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000004);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000005);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000006);
+    }
+    if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() == "Contact") {
+
+        Xrm.Page.getControl("accountrolecode").removeOption(1);
+        Xrm.Page.getControl("accountrolecode").removeOption(3);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000001);
+    }
+
+    if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() == "Employee") {
+        Xrm.Page.getControl("accountrolecode").removeOption(1);
+        Xrm.Page.getControl("accountrolecode").removeOption(3);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000000);
+        Xrm.Page.getControl("accountrolecode").removeOption(100000001);
+    }
+
+    //}
+}

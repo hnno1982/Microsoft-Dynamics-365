@@ -1,0 +1,17 @@
+function decihid() {
+    var formType = Xrm.Page.ui.getFormType(); //get the form type
+    //var entity = Xrm.Page.data.entity.getEntityName();
+    var opnum = Xrm.Page.getAttribute("new_estimatedparticipation").getValue();
+    var innum = Xrm.Page.getAttribute("new_inprogress").getValue();
+
+    if (formType != 1) {
+        if (opnum == 0 && innum == 0) {
+            return false; // Hide button
+        }
+
+        else
+        {
+            return true; //Show button
+        }
+    }
+}

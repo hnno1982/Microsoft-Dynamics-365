@@ -1,0 +1,34 @@
+function chklvl()
+{
+    var val1 = Xrm.Page.getAttribute("new_level")
+    var valval = val1.getValue();
+
+    //////////////////////////////////////// lvl3
+    if (valval == 100000002) //lvl3 
+    {
+        Xrm.Page.ui.tabs.get("tab_2").setVisible(true);
+        Xrm.Page.ui.tabs.get("tab_1").setVisible(false);
+        Xrm.Page.ui.tabs.get("tab_0").setVisible(false);
+    }
+
+    if (valval == 100000001) //lvl2 
+    {
+        Xrm.Page.ui.tabs.get("tab_2").setVisible(false);
+        Xrm.Page.ui.tabs.get("tab_1").setVisible(true);
+        Xrm.Page.ui.tabs.get("tab_0").setVisible(false);
+    }
+
+    if (valval == 100000000) //lvl1 
+    {
+        Xrm.Page.ui.tabs.get("tab_2").setVisible(false);
+        Xrm.Page.ui.tabs.get("tab_1").setVisible(false);
+        Xrm.Page.ui.tabs.get("tab_0").setVisible(true);
+    }
+
+    if (valval != 100000000 && valval != 100000001 && valval != 100000002) //!lvl1,2,3 
+    {
+        Xrm.Page.ui.tabs.get("tab_2").setVisible(false);
+        Xrm.Page.ui.tabs.get("tab_1").setVisible(false);
+        Xrm.Page.ui.tabs.get("tab_0").setVisible(false);
+    }
+}

@@ -1,0 +1,83 @@
+//This script will focus on the customer field to fetch the required information to be used in the other fields
+
+function blvalidation()
+{
+	var formType = Xrm.Page.ui.getFormType();
+	if (formType == 2)
+	{
+		var lookupObj = Xrm.Page.getAttribute("new_entitylookupname"); //Check for Lookup Object
+		//There are data in the lookup
+		if (lookupObj != null)
+		{
+			var lookupObjValue = lookupObj.getValue(); //Check for Lookup Value
+			if (lookupObjValue != null)
+			{
+				try
+				{
+					var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+						lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+						lookupRecordName = lookupObjValue[0].name; //To get record Name 
+				}
+				catch (Error)
+				{
+					var controls = Xrm.Page.ui.controls.get();
+					for (var i in controls)
+					{
+						var control = controls[i];
+						if (control.getDisabled && control.setDisabled && !control.getDisabled())
+						{
+							control.setDisabled(false);
+						}
+					}
+					Xrm.Page.getControl("new_entitylookupname").setVisible(true);
+				}
+				if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null && lookupEntityType == "account")
+				{
+					var controls = Xrm.Page.ui.controls.get();
+					for (var i in controls)
+					{
+						var control = controls[i];
+						if (control.getDisabled && control.setDisabled && !control.getDisabled())
+						{
+							control.setDisabled(true);
+						}
+					}
+					Xrm.Page.getControl("new_entitylookupname").setVisible(true);
+				}
+				if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null && lookupEntityType == "contact")
+				{
+					var controls = Xrm.Page.ui.controls.get();
+					for (var i in controls)
+					{
+						var control = controls[i];
+						if (control.getDisabled && control.setDisabled && !control.getDisabled())
+						{
+							control.setDisabled(false);
+						}
+					}
+					Xrm.Page.getControl("new_entitylookupname").setVisible(true);
+					Xrm.Page.getControl("new_entitylookupname").setDisabled(true);
+					Xrm.Page.getControl("new_entityname").setDisabled(true);
+					Xrm.Page.getControl("new_entitytype").setDisabled(true);
+				}
+			}
+			if (lookupObjValue == null)
+			{
+				Xrm.Page.getControl("new_entitylookupname").setVisible(false);
+			}
+		}
+		//There are NO data in the lookup
+		else if (lookupObj == null)
+		{
+			var controls = Xrm.Page.ui.controls.get();
+			for (var i in controls)
+			{
+				var control = controls[i];
+				if (control.getDisabled && control.setDisabled && !control.getDisabled())
+				{
+					control.setDisabled(false);
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,5 @@
+function INTdilg()
+{
+    var id = Xrm.Page.data.entity.getId();
+    window.open("http://dyn365/BakerTilly/cs/dialog/rundialog.aspx?DialogId=%7b6639F87B-171C-4E75-8743-6A3B470608EA%7d&EntityName=phonecall&ObjectId=" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=no,top=100,left=650,width=700,height=800");
+}

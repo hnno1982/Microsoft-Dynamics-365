@@ -1,0 +1,86 @@
+function getprognam() {
+    getfeescosdate("new_programname");
+}
+
+function getfeescosdate(lookupSchemaName)
+{
+
+    Xrm.Page.getAttribute("estimatedclosedate").setValue(null);//Replace lookup field name
+    Xrm.Page.getAttribute("estimatedvalue").setValue(null);//Replace lookup field name
+
+    var lookupObjdir = Xrm.Page.getAttribute("estimatedclosedate").getValue();
+    if (lookupObjdir == null || lookupObjdir == 'undefined' || lookupObjdir == '')
+    {
+        var lookupObj = Xrm.Page.getAttribute(lookupSchemaName); //Check for Lookup Object
+        if (lookupObj != null)
+        {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+            if (lookupObjValue != null) 
+            {
+
+                try
+                {
+                    var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                        lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                        lookupRecordName = lookupObjValue[0].name; //To get record Name 
+                }
+             
+
+
+                catch(Error)
+                {}
+
+                    if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null)
+                    {
+
+                        // Get the ID of the Customer 
+                        var fortype1 = Xrm.Page.getAttribute("new_programname").getValue()[0].name;
+                        var fortype2 = Xrm.Page.getAttribute("new_programname").getValue()[0].id;
+                        var sFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+                        "<entity name='new_trainingprograms'>" +
+                        "<attribute name='new_kickoffdata' />" +
+                        "<attribute name='new_trainingprogramsid' />" +
+                        "<attribute name='new_participationfees' />" +
+                        "<filter type='and'>" +
+                        "<condition attribute='new_trainingprogramsid' operator='eq' uiname='" + fortype1 + "' uitype='new_trainingprograms' value='" + fortype2 + "'/>" +
+                        "</filter></entity>" +
+                        "</fetch>";
+                        var encodedFetchXml = encodeURI(sFetch);
+                        var queryPath = "/api/data/v8.0/new_trainingprogramses?fetchXml=" + encodedFetchXml;
+                        var requestPath = Xrm.Page.context.getClientUrl() + queryPath;
+                        var req = new XMLHttpRequest();
+                        req.open("GET", requestPath, true);
+                        req.setRequestHeader("Accept", "application/json");
+                        req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                        req.setRequestHeader('Prefer', 'odata.include-annotations="*"');
+                        req.onreadystatechange = function ()
+                        {
+                            if (this.readyState === 4)
+                            {
+                                this.onreadystatechange = null;
+
+                                if (this.status === 200)
+                                {
+                                    //alert("yes")
+                                    var returned = JSON.parse(this.responseText);
+                                    var results = returned.value;
+                                    for (var i = 0; i < results.length; i++) {
+                                        var conroleda = results[i]["new_kickoffdata"];
+                                        var conrolefe = results[i]["new_participationfees"];
+                                        var datee = new Date(conroleda)
+                                        Xrm.Page.getAttribute("estimatedclosedate").setValue(datee);
+                                        Xrm.Page.getAttribute("estimatedvalue").setValue(conrolefe);
+                                    }
+                                }
+                                else
+                                {
+                                    alert(this.statusText);
+                                }
+                            }
+                        };
+                        req.send();
+                    }
+            }
+        }
+    }
+}

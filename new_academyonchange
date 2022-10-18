@@ -1,0 +1,16 @@
+function academyOnChange() 
+{
+try
+{
+    var obj = Xrm.Page.getAttribute("new_academytype");
+    if (obj != null) 
+   {
+        //Get OptionSet Text
+        var lookupRecordName = obj.getText();
+        Xrm.Page.getControl("new_univorinstitsel").setLabel(lookupRecordName);
+    }
+}
+
+    catch (Error)
+    { }
+}

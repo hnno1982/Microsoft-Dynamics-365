@@ -1,0 +1,6 @@
+function linkentityfetchspeci() 
+{
+    var fetchXml = "";
+    fetchXml = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'><entity name='new_specialties'><attribute name='new_specialtyar' /><link-entity name='new_uniandprofdgre' from='new_specialization' to= 'new_specialtiesid'><filter type='and'><condition attribute='new_lecturername' operator='eq' uiname='أحمد محمد العقاد' uitype='contact' value='{BAB66636-A9C3-E711-80D6-0050568D7281}' /></filter></link-entity></entity></fetch>  
+     Xrm.Page.getControl("new_specialtyar").addCustomFilter(fetchXml);
+}

@@ -1,0 +1,11 @@
+function hideScriptErrorMsgBlock() {
+
+   var _errorMsgBlock = document.getElementById("trBlockMsg");
+
+   if (_errorMsgBlock != null && _errorMsgBlock != undefined) {
+
+       document.getElementById("trBlockMsg").style.display = 'none';
+
+   }
+
+}

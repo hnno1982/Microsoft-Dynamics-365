@@ -1,0 +1,55 @@
+function gtindtyp(lookupSchemaName1, lookupSchemaName2) {
+    try {
+        var lookupObj = Xrm.Page.getAttribute(lookupSchemaName1); //Check for Lookup Object1
+        var lookupObj2 = Xrm.Page.getAttribute(lookupSchemaName2); //Check for Lookup Object1
+
+        if (lookupObj != null && lookupObj != 'undefined' && lookupObj != '' && lookupObj2 != null && lookupObj2 != 'undefined' && lookupObj2 != '') {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value1
+            var lookupObjValue2 = lookupObj2.getValue();//Check for Lookup Value1
+            if (lookupObjValue != null && lookupObjValue != 'undefined' && lookupObjValue != "" && lookupObjValue != '' && lookupObjValue2 != null && lookupObjValue2 != 'undefined' && lookupObjValue2 != "" && lookupObjValue2 != '') {
+                if (lookupObjValue[0].name == "التأمين") {
+                    Xrm.Page.ui.tabs.get("tab_3").setVisible(true);
+                    //set all filed in the tap as bussines requierd
+                    Xrm.Page.ui.tabs.get("tab_3").sections.forEach(function (section, sectionIndex) {
+                        section.controls.forEach(function (control, index) {
+                            control.getAttribute().setRequiredLevel("required");
+                        });
+                    });
+                }
+                else if (lookupObjValue[0].name != "التأمين" || lookupObjValue[0].name == "" || lookupObjValue[0].name == '' || lookupObjValue[0].name == null || lookupObjValue == null || lookupObjValue == "") {
+                    Xrm.Page.ui.tabs.get("tab_3").setVisible(false);
+                    //set all filed in the tap as not bussines requierd
+                    Xrm.Page.ui.tabs.get("tab_3").sections.forEach(function (section, sectionIndex) {
+                        section.controls.forEach(function (control, index) {
+                            control.getAttribute().setRequiredLevel("none");
+                            //control.getAttribute().setValue(null);
+                        });
+                    });
+                }
+            }
+
+            else if (lookupObjValue == null || lookupObjValue == 'undefined' || lookupObjValue == "" || lookupObjValue[0].name != "التأمين" || lookupObjValue[0].name == "" || lookupObjValue[0].name == '' || lookupObjValue[0].name == null) {
+                Xrm.Page.ui.tabs.get("tab_3").setVisible(false);
+                //set all filed in the tap as not bussines requierd
+                Xrm.Page.ui.tabs.get("tab_3").sections.forEach(function (section, sectionIndex) {
+                    section.controls.forEach(function (control, index) {
+                        control.getAttribute().setRequiredLevel("none");
+                        //control.getAttribute().setValue(null);
+                    });
+                });
+            }
+        }
+
+        else {
+            Xrm.Page.ui.tabs.get("tab_3").setVisible(false);
+            //set all filed in the tap as not bussines requierd
+            Xrm.Page.ui.tabs.get("tab_3").sections.forEach(function (section, sectionIndex) {
+                section.controls.forEach(function (control, index) {
+                    control.getAttribute().setRequiredLevel("none");
+                   // control.getAttribute().setValue(null);
+                });
+            });
+        }
+    }
+    catch (e) { Xrm.Page.getAttribute(lookupSchemaName1).setValue(null); }
+}

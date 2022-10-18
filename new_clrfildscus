@@ -1,0 +1,10 @@
+function clrfildscus(lookupAttribute) {
+    var lookupObject = Xrm.Page.getAttribute(lookupAttribute);
+    var lookupvalue = lookupObject.getValue();
+
+    if (lookupvalue == null || lookupvalue == "" || lookupvalue == undefined) {
+        Xrm.Page.getAttribute("new_entitytype").setValue(null)
+        Xrm.Page.getAttribute("new_entityname").setValue(null)
+        Xrm.Page.getAttribute("new_marketplace").setValue(null)
+    }
+}

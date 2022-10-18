@@ -1,0 +1,27 @@
+//display icon and tooltio for the grid column  
+ function displayIconTooltip(rowData, userLCID) {  
+   var str = JSON.parse(rowData);  
+   var coldata = str.prioritycode_Value;  
+   var imgName = "";  
+   var tooltip = "";  
+   switch (coldata) {  
+     case 1:  
+       imgName = "new_/images/red.png";  
+       tooltip = "High Priority Case";  
+       break;  
+     case 2:  
+       imgName = "new_/images/yellow.png";  
+       tooltip = "NormalPriority Case";  
+       break;  
+     case 3:  
+       imgName = "new_/images/green.png";  
+       tooltip = "Low Priority Case";  
+       break;  
+     default:  
+       imgName = "";  
+       tooltip = "";  
+       break;  
+   }  
+   var resultarray = [imgName, tooltip];  
+   return resultarray;  
+ }  

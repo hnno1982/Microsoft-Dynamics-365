@@ -1,0 +1,65 @@
+function getcontatspecialization() 
+{ 
+
+var roleid = Xrm.Page.getAttribute("accountrolecode").getValue();
+if(roleid != null && roleid != undefined)
+{
+                if(roleid == 100000000) //Lec
+				{
+                    //var speoleid = 100000001;
+					if (Xrm.Page.getControl("new_firstspecialization") != null && Xrm.Page.getControl("new_firstspecialization") !=undefined) {
+					Xrm.Page.getControl("new_firstspecialization").addPreSearch(function () {
+					getspecia1();
+					});
+					}
+					
+					function getspecia1() 
+					{							
+						var fetchXml1 = "";
+						fetchXml1 = "<filter type='and'>"+
+						  "<condition attribute='new_relatedto' operator='eq' value='100000001' />"+
+						"</filter>"						
+						Xrm.Page.getControl("new_firstspecialization").addCustomFilter(fetchXml1);
+					}	
+                }
+				
+				 else if(roleid == 100000001) //Con
+                {
+                    //var speoleid = 100000000;
+					if (Xrm.Page.getControl("new_firstspecialization") != null && Xrm.Page.getControl("new_firstspecialization") !=undefined) {
+					Xrm.Page.getControl("new_firstspecialization").addPreSearch(function () {
+					getspecia0();
+					});
+					}
+					
+					function getspecia0() 
+					{
+						var fetchXml0 = "";
+						fetchXml0 = "<filter type='and'>"+
+							"<condition attribute='new_relatedto' operator='eq' value='100000000' />"+
+							"</filter>"   
+						Xrm.Page.getControl("new_firstspecialization").addCustomFilter(fetchXml0);
+					}	      
+                }
+
+                else if(roleid == 100000002 || roleid == 100000003) //Emp or EEMP
+                {
+                    //var speroleid = 100000002;
+					if (Xrm.Page.getControl("new_firstspecialization") != null && Xrm.Page.getControl("new_firstspecialization") !=undefined) {
+					Xrm.Page.getControl("new_firstspecialization").addPreSearch(function () {
+					getspecia2();
+					});				
+					}
+					
+					function getspecia2() 
+					{
+						var fetchXml2 = "";
+						fetchXml2 = "<filter type='and'>"+
+							"<condition attribute='new_relatedto' operator='eq' value='100000002' />"+
+							"</filter>"   
+						Xrm.Page.getControl("new_firstspecialization").addCustomFilter(fetchXml2);
+					}	  
+                }
+}				
+}
+

@@ -1,0 +1,45 @@
+function getCLINTPartyList()
+{
+	var formType = Xrm.Page.ui.getFormType();
+	if (formType == 1 || formType == 2)
+	{
+		getLookupDetails("to");
+	}
+}
+
+function getLookupDetails(lookupSchemaName)
+{
+	try
+	{
+		var lookupObjcus = Xrm.Page.getAttribute("new_callto"); //Check for Lookup Object
+		if (lookupObjcus != null)
+		{
+			var lookupObjValuecus = lookupObjcus.getValue(); //Check for Lookup Value
+			if (lookupObjValuecus == null)
+			{
+				var lookupObj = Xrm.Page.getAttribute(lookupSchemaName); //Check for Lookup Object
+				if (lookupObj != null)
+				{
+					var lookupObjValue = lookupObj.getValue(); //Check for Lookup Value
+					if (lookupObjValue != null)
+					{
+						var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+							lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+							lookupRecordName = lookupObjValue[0].name; //To get record Name 
+						if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null)
+						{
+							//Xrm.Utility.alertDialog("Entity Type : " + lookupEntityType + "\nRecord GUID : " + lookupRecordGuid + "\nRecord Name : " + lookupRecordName, null);
+							Xrm.Page.getAttribute("new_callto").setValue([
+							{
+								id: lookupRecordGuid,
+								name: lookupRecordName,
+								entityType: lookupEntityType}]);
+						}
+					}
+				}
+			}
+		}
+	}
+	catch (ex)
+	{}
+}

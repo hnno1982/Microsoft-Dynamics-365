@@ -1,0 +1,31 @@
+//display icon and tooltio for the grid column  
+function empo(rowData, userLCID) {
+    var str = JSON.parse(rowData);
+    var coldata = str.accountrolecode_Value;
+    var imgName = "";
+    var tooltip = "";
+    switch (coldata) {
+        case 100000002:
+            imgName = "new_/images/emp.png";
+            tooltip = "Revenue Division";
+            break;
+        case 100000003:
+            imgName = "new_/images/exemp.png";
+            tooltip = "Exit Employee";
+            break;
+        case 100000004:
+            imgName = "new_/images/par.png";
+            tooltip = "Partner";
+            break;
+        case 100000005:
+            imgName = "new_/images/cons.png";
+            tooltip = "Outsource Professional";
+            break;
+        case 100000006:
+            imgName = "new_/images/sup.png";
+            tooltip = "Support Services Division";
+            break;
+    }
+    var resultarray = [imgName, tooltip];
+    return resultarray;
+}

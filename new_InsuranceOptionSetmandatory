@@ -1,0 +1,32 @@
+function InsuranceOptionSetmandatory(lookupSchemaName1) {
+    try {
+        var type = Xrm.Page.getAttribute("new_ownershipofthecompany").getValue();   // Replace Type field name  
+        var lookupObj = Xrm.Page.getAttribute(lookupSchemaName1); //Check for Lookup Object1
+        if (lookupObj != null && lookupObj != 'undefined' && lookupObj != '') {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value1
+            if (lookupObjValue != null && lookupObjValue != 'undefined' && lookupObjValue != "" && lookupObjValue != '') {
+                if (lookupObjValue[0].name == "التأمين") {
+                    if (type == 100000001) // عربية
+                    {
+                        Xrm.Page.getAttribute("new_primaryexternalauditfirm").setRequiredLevel("required"); // Business Required
+                        Xrm.Page.getAttribute("new_primaryexternalauditor").setRequiredLevel("required"); // Business Required
+                    }
+
+                    if (type == 100000002) // أجنبية
+                    {
+                        Xrm.Page.getAttribute("new_primaryexternalauditfirm").setRequiredLevel("required"); // Business Required
+                        Xrm.Page.getAttribute("new_primaryexternalauditor").setRequiredLevel("required"); // Business Required
+                    }
+
+                    if (type == 100000000) // كويتية
+                    {
+                        Xrm.Page.getAttribute("new_primaryexternalauditfirm").setRequiredLevel("required"); // Business Required
+                        Xrm.Page.getAttribute("new_primaryexternalauditor").setRequiredLevel("required"); // Business Required
+                    }
+                }
+            }
+        }
+    }
+    catch (Error)
+    { }
+}

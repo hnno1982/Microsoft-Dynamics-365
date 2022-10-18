@@ -1,0 +1,61 @@
+function blvalidonchnage()
+{
+    var lookupObj = Xrm.Page.getAttribute("new_entitylookupname"); //Check for Lookup Object
+
+    //There are data in the lookup
+    if (lookupObj != null)
+    {
+        var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+        if (lookupObjValue != null)
+        {
+            try
+            {
+                var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                    lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                    lookupRecordName = lookupObjValue[0].name; //To get record Name 
+            }
+
+            catch (Error)
+            {
+                Xrm.Page.getControl("new_entitylookupname").setDisabled(false);
+                Xrm.Page.getControl("new_entityname").setDisabled(false);
+                Xrm.Page.getControl("new_entitytype").setDisabled(false);
+                Xrm.Page.getControl("new_marketplace").setDisabled(false);
+            }
+
+            //Account
+            if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null && lookupEntityType == "account")
+            {
+
+                Xrm.Page.getControl("new_entitylookupname").setDisabled(false);
+                Xrm.Page.getControl("new_entityname").setDisabled(true);
+                Xrm.Page.getControl("new_entitytype").setDisabled(true);
+                Xrm.Page.getControl("new_marketplace").setDisabled(true);
+            }
+
+            //Contact
+            else if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null && lookupEntityType == "contact")
+            {
+
+                Xrm.Page.getControl("new_entitylookupname").setDisabled(false);
+                Xrm.Page.getControl("new_entityname").setDisabled(true);
+                Xrm.Page.getControl("new_entitytype").setDisabled(true);
+                Xrm.Page.getControl("new_marketplace").setDisabled(false);
+
+            }
+
+
+        }
+
+            //There are NO data in the lookup
+        else 
+        {
+            Xrm.Page.getControl("new_entitylookupname").setDisabled(false);
+            Xrm.Page.getControl("new_entityname").setDisabled(false);
+            Xrm.Page.getControl("new_entitytype").setDisabled(false);
+            Xrm.Page.getControl("new_marketplace").setDisabled(false);
+        }
+
+
+    }
+}

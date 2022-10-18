@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+		//hide section 
+		
+		//hide show section
+
+function showhidesec_16() 
+{
+
+var lookupObjValue1 = Xrm.Page.getAttribute("new_cmalisted").getValue();             
+
+if (lookupObjValue1 != 0 ) 
+{
+Xrm.Page.ui.tabs.get("SUMMARY_TAB").sections.get("sec_16").setVisible(true);
+}
+
+else if (lookupObjValue1 != 1 || lookupObjValue1 == null || lookupObjValue1 == "") 
+{ 
+Xrm.Page.ui.tabs.get("SUMMARY_TAB").sections.get("sec_16").setVisible(false);
+}
+
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+function focs()
+{
+window.setTimeout(setFocus,50)         
+}
+
+function setFocus()
+{
+Xrm.Page.getControl("suffix").setFocus();
+}

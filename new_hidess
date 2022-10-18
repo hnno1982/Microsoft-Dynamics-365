@@ -1,0 +1,8 @@
+function hidess() 
+{
+   //if (Xrm.Page.ui.getFormType() == 1)  //Check if the form type is not create form
+   //{
+    Xrm.Page.getControl("new_univorinstit").removeOption(100000002);
+    //Xrm.Page.getControl("header_process_new_origin").removeOption(100000002);
+   //}
+}

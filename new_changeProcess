@@ -1,0 +1,32 @@
+function changeProcess ()
+{
+    //var activeProcessID = Xrm.Page.data.process.getActiveProcess().getId();
+    //alert (activeProcessID)
+
+    var type = Xrm.Page.getAttribute("new_proposalrequired").getValue();
+    if (type == 100000001)
+    {
+        Xrm.Page.data.process.setActiveProcess("afcc4e8b-cc74-4a51-b409-8cb03ab04ace", myCallBack);
+    }
+
+    else if (type == 100000000)
+    {
+        Xrm.Page.data.process.setActiveProcess("3e8ebee6-a2bc-4451-9c5f-b146b085413a", myCallBack);
+    }
+}
+
+// Call back function post Process flow switch
+function myCallBack(response)
+{
+    if (response == "success")
+    {
+        alert("BPF changed !!!");
+        // Save the form
+        Xrm.Page.data.entity.save();
+    }
+    else
+    {
+        alert(response)
+        alert("Error changing BPF!!!");
+    }
+}

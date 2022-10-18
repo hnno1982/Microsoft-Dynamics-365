@@ -1,0 +1,9 @@
+function SetLookupsNull ()
+{
+
+if (Xrm.Page.ui.getFormType() == 1) 
+{
+        Xrm.Page.getAttribute("new_account").setValue(null);
+}
+
+}

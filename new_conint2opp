@@ -1,0 +1,110 @@
+function conint2opp()
+{
+
+    var lookupObj = Xrm.Page.getAttribute("new_interestcategory"); //Check for Lookup Object
+    if (lookupObj != null) {
+        var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+        if (lookupObjValue != null) {
+            try
+            {
+                var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                    lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                    lookupRecordName = lookupObjValue[0].name; //To get record Name 
+            }
+
+            catch (Error)
+            { }
+
+            if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null)
+            {
+
+                var parameters = {};
+
+                // Get the ID of the Unit 
+
+                var unitname = Xrm.Page.getAttribute("new_interestcategory").getValue()[0].name;
+
+                if (unitname == "إدارة التدريب")
+                {
+                    var uniit = Xrm.Page.getAttribute("new_interestcategory").getValue();
+                    parameters["pricelevelid"] = uniit[0].id;
+                    parameters["pricelevelidname"] = uniit[0].name;
+
+                    var tarser = Xrm.Page.getAttribute("new_interestservice").getValue();
+                    parameters["new_targetservice"] = tarser[0].id;
+                    parameters["new_targetservicename"] = tarser[0].name;
+
+                    var toc = Xrm.Page.getAttribute("new_typeofcontract").getValue();
+                    parameters["new_typeofcontract"] = toc;
+                    
+                }
+
+                else
+                {
+                    var uniit = Xrm.Page.getAttribute("new_interestcategory").getValue();
+                    parameters["pricelevelid"] = uniit[0].id;
+                    parameters["pricelevelidname"] = uniit[0].name;
+
+                    var tarser = Xrm.Page.getAttribute("new_interestservice").getValue();
+                    parameters["new_targetservice"] = tarser[0].id;
+                    parameters["new_targetservicename"] = tarser[0].name;
+                }
+
+                //identify cutsomer if its account or contact 
+                var lookupOb = Xrm.Page.getAttribute("new_customer"); //Check for Lookup Object
+                if (lookupOb != null)
+                {
+                    var lookupObValue = lookupOb.getValue();//Check for Lookup Value
+                    if (lookupObValue != null) {
+                        try {
+                            var lookupEntity = lookupObValue[0].entityType //To get EntityName
+                            //alert(lookupEntity)
+                            if (lookupEntity == "account")
+                            {
+                                //alert("account")
+                                var potiAccoun = Xrm.Page.getAttribute("new_customer").getValue();
+                                parameters["parentaccountid"] = potiAccoun[0].id;
+                                parameters["parentaccountidname"] = potiAccoun[0].name;
+                            }
+                            else
+                            {
+                                //alert("contact")
+                                var potiCON = Xrm.Page.getAttribute("new_customer").getValue();
+                                parameters["parentcontactid"] = potiCON[0].id;
+                                parameters["parentcontactidname"] = potiCON[0].name;
+                            }
+                        }
+
+                        catch (Error)
+                        { }
+                    }
+                }
+
+                var ori = Xrm.Page.getAttribute("new_description").getValue();
+                parameters["new_origin"] = "100000014";
+
+                var descrip = Xrm.Page.getAttribute("new_description").getValue();
+                parameters["description"] = descrip;
+
+                var subgct = Xrm.Page.getAttribute("new_subject").getValue();
+                parameters["name"] = subgct;
+
+                var intrst = Xrm.Page.data.entity.getId();
+                parameters["new_interest"] = intrst;
+                parameters["new_interestname"] = subgct;
+
+
+                var windowOptions = {
+                    openInNewWindow: true
+                };
+                Xrm.Utility.openEntityForm("opportunity", null, parameters, windowOptions);
+
+            }
+
+            else 
+                {alert("يرجى إدخال البيانات الأساسية قبل طلب تحويل الإهتمام إلى فرصة")}
+        }
+
+    }
+}
+

@@ -1,0 +1,10 @@
+function academytype() {
+    var obj = Xrm.Page.getAttribute("new_univorinstit");
+    if (obj != null) {
+        //Get OptionSet Text
+        var lookupRecordName = obj.getText();
+        Xrm.Page.getControl("new_univorinstitar").setLabel(lookupRecordName + " AR name");
+        Xrm.Page.getControl("new_univorinstiten").setLabel(lookupRecordName + " EN name");
+        Xrm.Page.getControl("new_universitylocation").setLabel(lookupRecordName + " Location");
+    }
+}

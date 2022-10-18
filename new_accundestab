@@ -1,0 +1,64 @@
+function accundestab()
+{
+	var freeze = Xrm.Page.data.entity.attributes.get("new_underestablishment");
+	var optionSetValue = freeze.getValue();
+	var optionSetText = freeze.getText();
+	if (optionSetText == "Yes")
+	{
+		var attributes = Xrm.Page.data.entity.attributes.get();
+		for (var i in attributes)
+		{
+			var myattribute = Xrm.Page.data.entity.attributes.get(attributes[i].getName());
+			var myname = myattribute.getName();
+			if (myname == "name" || myname == "new_enaccountname" || myname == "new_country" || myname == "telephone1" || myname == "address1_composite" || myname == "address2_composite" || myname == "new_economicsector" || myname == "new_industry" || myname == "new_industrytype" || myname == "new_accountsegment" || myname == "new_startworkinghours" || myname == "new_endworkinghours")
+			{
+				Xrm.Page.getAttribute(myname).setRequiredLevel("none");
+			}
+		}
+		alert("هذا الكيان تحت التأسيس ولا يوجد له بيانات كافية ")
+		Xrm.Page.ui.setFormNotification("هذا الكيان تحت التأسيس ولا يوجد بيانات كافية", "WARNING", "4")
+	}
+	else if (optionSetText != "Yes")
+	{
+		try
+		{
+			var lookupObj = Xrm.Page.getAttribute("new_inout"); //Check for Lookup Object1
+			if (lookupObj != null && lookupObj != 'undefined' && lookupObj != '')
+			{
+				var lookupObjValue = lookupObj.getValue(); //Check for Lookup Value1
+				if (lookupObjValue != null && lookupObjValue != 'undefined' && lookupObjValue != "" && lookupObjValue != '')
+				{
+					if (lookupObjValue[0].name == "Inside")
+					{
+						var attributes = Xrm.Page.data.entity.attributes.get();
+						for (var i in attributes)
+						{
+							var myattribute = Xrm.Page.data.entity.attributes.get(attributes[i].getName());
+							var myname = myattribute.getName();
+							if (myname == "name" || myname == "new_enaccountname" || myname == "new_country" || myname == "telephone1" || myname == "address1_composite" || myname == "address2_composite" || myname == "new_economicsector" || myname == "new_industry" || myname == "new_industrytype" || myname == "new_accountsegment" || myname == "new_startworkinghours" || myname == "new_endworkinghours")
+							{
+								Xrm.Page.getAttribute(myname).setRequiredLevel("required");
+							}
+						}
+					}
+					else if (lookupObjValue[0].name != "Inside")
+					{
+						var attributes = Xrm.Page.data.entity.attributes.get();
+						for (var i in attributes)
+						{
+							var myattribute = Xrm.Page.data.entity.attributes.get(attributes[i].getName());
+							var myname = myattribute.getName();
+							if (myname == "name" || myname == "new_enaccountname" || myname == "new_country" || myname == "telephone1" || myname == "address1_composite" || myname == "address2_composite" || myname == "new_economicsector" || myname == "new_industry" || myname == "new_industrytype")
+							{
+								Xrm.Page.getAttribute(myname).setRequiredLevel("required");
+							}
+						}
+					}
+				}
+			}
+		}
+		catch (e)
+		{}
+		Xrm.Page.ui.clearFormNotification("4")
+	}
+}

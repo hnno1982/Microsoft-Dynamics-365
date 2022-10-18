@@ -1,0 +1,19 @@
+function dirtya7a()
+{
+    var attributes = Xrm.Page.data.entity.attributes.get() ;
+    for (var i in attributes)
+    {
+        var attribute = attributes[i];
+        if (attribute.getIsDirty())
+        {      
+            //alert("attribute dirty: " + attribute.getName());
+            Xrm.Page.getAttribute(attribute.getName()).getSubmitMode("always");
+            Xrm.Page.data.setFormDirty(false);
+        }
+        else
+        { 
+            //alert("attribute not dirty: " + attribute.getName());
+            Xrm.Page.getAttribute(attribute.getName()).getSubmitMode("always");
+        }
+     }
+}

@@ -1,0 +1,26 @@
+function Doload() 
+{
+    try
+    {
+    var formContext = Xrm.Page.ui.getFormType();
+		if (formContext == 1) 
+		{
+//alert("1")
+		  Xrm.Page.ui.controls.get("new_requestforupdate").setDisabled(true)
+		}
+		
+		elseif (formContext == 2) 
+		{
+//alert("2")
+		  Xrm.Page.ui.controls.get("new_requestforupdate").setDisabled(false)
+		}
+    }
+
+    catch(ex)
+    {}
+}
+
+
+
+
+

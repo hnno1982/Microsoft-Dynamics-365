@@ -1,0 +1,32 @@
+function OnSave(exectionObj) {
+    if (Xrm.Page.data.entity.getId() === null) return;
+
+    var serverUrl = Xrm.Page.context.getClientUrl();
+    var oDataSelect = serverUrl + "/XRMServices/2011/OrganizationData.svc/AnnotationSet?$filter=ObjectId/Id eq guid'" + Xrm.Page.data.entity.getId() + "'&$select=IsDocument,FileName";
+    var allowSave = false;
+    var req = new XMLHttpRequest();
+    req.open("GET", oDataSelect, false);
+    req.setRequestHeader("Accept", "application/json");
+    req.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+    req.onreadystatechange = function () {
+        if (req.readyState === 4) {
+            if (req.status === 200) {
+                var retrieved = JSON.parse(req.responseText).d;
+                for (var i = 0; i < retrieved.results.length; i++) {
+                    if (retrieved.results[0].IsDocument) {
+                        allowSave = true;
+                        break;
+                    }
+                }
+            }
+        }
+    };
+    req.send();
+
+    if (!allowSave)
+    {
+        //alert("Attach a file via a note");
+        Xrm.Page.ui.setFormNotification("Attchment is missing for this specialty profile, please check the missing attchment and upload it", "INFO", "33");
+    }
+    else { Xrm.Page.ui.clearFormNotification("33"); }
+}

@@ -1,0 +1,17 @@
+function emailcheker() {
+    emailchecker("donotemail");
+}
+
+function emailchecker(lookupSchemaName) {
+    var conrolefe = Xrm.Page.getAttribute(lookupSchemaName).getValue();
+
+    if (conrolefe == 1) {
+        Xrm.Page.ui.setFormNotification(" العميل ليس لديه رغبة في إستقبال رسالة بريد إلكتروني من الشركة ", "WARNING", "9");
+alert("العميل ليس لديه رغبة في إستقبال رسالة بريد إلكتروني من الشركة")
+
+
+    }
+    else {
+        Xrm.Page.ui.clearFormNotification("9");
+    }
+}

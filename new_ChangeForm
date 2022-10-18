@@ -1,0 +1,60 @@
+function ChangeForm() {
+
+dirtya7a()
+
+var  formType= Xrm.Page.ui.getFormType();
+if(formType == 2)
+{
+
+
+   //check if the current form is form need to be displayed based on the value
+   var val1 = Xrm.Page.getAttribute("new_passport").getValue();
+
+if (val1 == 1)
+{
+     var lblForm;
+    lblForm = "New Form";
+        if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() != lblForm) {
+            var items = Xrm.Page.ui.formSelector.items.get();
+            for (var i in items) {
+                var item = items[i];
+                var itemId = item.getId();
+                var itemLabel = item.getLabel()
+                if (itemLabel == lblForm) {
+                    //navigate to the form
+                    item.navigate();
+                } //endif
+            } //end for
+        } //endif
+}    
+
+else
+{
+  var lblFormI;
+  lblFormI = "Information";
+  if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() != lblFormI) {
+            var itemsI = Xrm.Page.ui.formSelector.items.get();
+            for (var i in itemsI) {
+                var itemI = itemsI[i];
+                var itemIdI = itemI.getId();
+                var itemLabelI = itemI.getLabel()
+                if (itemLabelI == lblFormI) {
+                    //navigate to the form
+                    itemI.navigate();
+                } //endif
+            } //end for
+        } //endif
+}
+
+}
+}
+
+
+
+
+
+
+
+
+
+

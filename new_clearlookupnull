@@ -1,0 +1,15 @@
+function SetLookupNullind(lookupAttribute) 
+{var lookupObject = Xrm.Page.getAttribute(lookupAttribute);
+
+
+
+if (lookupObject != null)
+ {
+
+Xrm.Page.getAttribute(lookupAttribute).setValue(
+
+null);
+
+}
+
+}

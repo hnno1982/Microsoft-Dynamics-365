@@ -1,0 +1,94 @@
+function ChangeFormALL() {
+
+    var formType = Xrm.Page.ui.getFormType();
+    if (formType == 0 || formType == 2 || formType == 3 || formType == 4) {
+
+        dirtya7a();
+        dirtyv2();
+        focs();
+
+        //check if the current form is form need to be displayed based on the value
+        var val1 = Xrm.Page.getAttribute("accountrolecode")
+        var valval = val1.getValue();
+
+        if (valval == 100000000) //lecturer
+        {
+            var lblForm;
+            lblForm = "";
+            if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() != "Lecturer") {
+                var items = Xrm.Page.ui.formSelector.items.get();
+                for (var i in items) {
+                    var item = items[i];
+                    var itemId = item.getId();
+                    var itemLabel = item.getLabel()
+                    if (itemLabel == "Lecturer") {
+                        //navigate to the form
+                        var attributes = Xrm.Page.data.entity.attributes.get();
+                        for (var i in attributes) {
+                            var attribute = attributes[i];
+                            var attributes = Xrm.Page.data.entity.attributes.get();
+                            Xrm.Page.getAttribute(attribute.getName()).getSubmitMode("never");
+                            Xrm.Page.data.setFormDirty(false);
+                            Xrm.Page.data.entity.save()
+                        }
+                        item.navigate();
+                    } //endif
+                } //end for
+            } //endif
+        }
+
+
+        if (valval == 2) //contact
+        {
+            var lblForm;
+            lblForm = "";
+            if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() != "Contact") {
+                var items = Xrm.Page.ui.formSelector.items.get();
+                for (var i in items) {
+                    var item = items[i];
+                    var itemId = item.getId();
+                    var itemLabel = item.getLabel()
+                    if (itemLabel == "Contact") {
+                        //navigate to the form
+                        var attributes = Xrm.Page.data.entity.attributes.get();
+                        for (var i in attributes) {
+                            var attribute = attributes[i];
+                            var attributes = Xrm.Page.data.entity.attributes.get();
+                            Xrm.Page.getAttribute(attribute.getName()).getSubmitMode("never");
+                            Xrm.Page.data.setFormDirty(false);
+                            Xrm.Page.data.entity.save()
+                        }
+                        item.navigate();
+                    } //endif
+                } //end for
+            } //endif   
+        }
+
+        if (valval == 100000002 || valval == 100000003 || valval == 100000004 || valval == 100000005 || valval == 100000006) //Emp, EXemp, Partner, External consultant 
+        {
+            var lblForm;
+            lblForm = "";
+            if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() != "Employee") {
+                var items = Xrm.Page.ui.formSelector.items.get();
+                for (var i in items) {
+                    var item = items[i];
+                    var itemId = item.getId();
+                    var itemLabel = item.getLabel()
+                    if (itemLabel == "Employee") {
+                        //navigate to the form
+                        var attributes = Xrm.Page.data.entity.attributes.get();
+                        for (var i in attributes) {
+                            var attribute = attributes[i];
+                            var attributes = Xrm.Page.data.entity.attributes.get();
+                            Xrm.Page.getAttribute(attribute.getName()).getSubmitMode("never");
+                            Xrm.Page.data.setFormDirty(false);
+                            Xrm.Page.data.entity.save()
+                        }
+                        item.navigate();
+                    } //endif
+                } //end for
+            } //endif   
+        }
+
+    }
+}

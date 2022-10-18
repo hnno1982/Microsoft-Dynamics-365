@@ -1,0 +1,30 @@
+function DisableSubGridNewButton() 
+{
+
+try
+{
+    //var noopportunitiy = Xrm.Page.getAttribute("new_noopportunitiy").getValue(); //noopportunitiy==1 
+    var oppfor = Xrm.Page.getAttribute("new_for").getValue();
+    var bl = Xrm.Page.getAttribute("new_bl").getValue();
+
+    if (oppfor == 100000002 || bl == true)
+    {
+        return false; // Hide button
+    }
+
+    else
+    {
+        return true; //Show button
+    }
+
+}
+
+    catch (Error)
+    { }
+
+}
+
+
+
+
+

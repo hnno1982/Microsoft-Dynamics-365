@@ -1,0 +1,21 @@
+function attchBRQ()
+{
+    var  formType= Xrm.Page.ui.getFormType();
+    if(formType == 2)
+    {
+        Xrm.Page.getControl("new_degreeofcertificate").setDisabled(true);
+        Xrm.Page.getAttribute("new_certificateattached").setRequiredLevel("required");
+        var relType = Xrm.Page.getAttribute("new_certificateattached").getValue();
+        if(relType == 0)
+        {
+            Xrm.Page.ui.setFormNotification("يرجى تحميل المرفق المطلوب", "INFORMATION")
+            Xrm.Page.getControl("new_certificateattached").setNotification("This is a notification about you missed upload required attachment")
+            alert("Please upload requierd attchment for this certificate")
+        } 
+
+        else
+        {
+            Xrm.Page.ui.clearFormNotification()
+        }
+    }
+}

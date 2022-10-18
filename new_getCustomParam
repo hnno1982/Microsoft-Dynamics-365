@@ -1,0 +1,12 @@
+function getCustomParam() {
+    if (Xrm.Page.context.getQueryStringParameters().regardingobjectid_1 != null && Xrm.Page.context.getQueryStringParameters().regardingobjectid_1 != 'undefined') {
+
+        var recorid = Xrm.Page.context.getQueryStringParameters().regardingobjectid_1;
+        alert(recorid)
+        var recordname = Xrm.Page.context.getQueryStringParameters().regardingobjectidname_1;
+        alert(recordname)
+        var entityname = Xrm.Page.context.getQueryStringParameters().regardingobjectidtype_1;
+        alert(entityname)
+       // Xrm.page.getAttribute("to").setValue([{ id: recorid, name: recordname, entityType: entityname }]);
+    }
+}

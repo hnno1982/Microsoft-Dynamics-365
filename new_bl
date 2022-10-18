@@ -1,0 +1,20 @@
+//This script to identify AML/CFT alert for the users on contact 
+
+function bl()
+{
+	var bl = Xrm.Page.getAttribute("new_bl").getValue();
+	var blnam = Xrm.Page.getAttribute("name").getValue();
+	var blnamen = Xrm.Page.getAttribute("new_enaccountname").getValue();
+	if (bl == true) //bl
+	{
+		alert("***" + blnam + "***" + "\n" +
+			"مصنف في قائمة غسل الأموال ومكافحة الإرهاب" + "\n" +
+			"لا يمكنك عمل فرصة أو محفظة لهذا الكيان" + "\n" +
+			"يرجى الرجوع إلى رئيس مكتب الإلتزام الرقابي");
+		Xrm.Page.ui.setFormNotification("***" + blnamen + "***" + " " + "Classified as AML/ CFT", "ERROR", "82")
+	}
+	else if (bl != true) //not bl
+	{
+		Xrm.Page.ui.clearFormNotification("82")
+	}
+}

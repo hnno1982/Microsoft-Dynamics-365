@@ -1,0 +1,11 @@
+function hideACONTLED() {
+    var obj = Xrm.Page.getAttribute("type").getValue();
+    if (obj != null) {
+
+        if (obj == 1) {
+            Xrm.Page.getAttribute("createdfromcode").setValue(2);
+            Xrm.Page.getControl("createdfromcode").removeOption(1);
+            Xrm.Page.getControl("createdfromcode").removeOption(4);
+        }
+    }
+}

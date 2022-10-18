@@ -1,0 +1,49 @@
+ // English Validation 
+function enJOTvalidate(lookupAttribute,errorz,numbrz) {
+//replace the attribute used to suit your field
+var enaccount = Xrm.Page.getAttribute(lookupAttribute).getValue();
+if(enaccount != null)
+{
+
+//var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+// only characters
+  //var re = /^[A-Za-z]+$/;  
+
+// only characters and numbers without space
+   //var re = /^[0-9a-zA-Z]+$/;
+
+// only characters and numbers with space
+   var re = /^([a-zA-Z0-9 _\.\(\)-]+)$/;
+
+  if(re.test(enaccount) == false)
+       {
+	  
+        Xrm.Page.getControl(lookupAttribute).setNotification(errorz);
+        alert(errorz);
+        Xrm.Page.ui.setFormNotification(errorz, "WARNING", numbrz)
+        return false;
+          
+        }
+
+        else
+        {
+   
+        Xrm.Page.getControl(lookupAttribute).clearNotification();
+        Xrm.Page.ui.clearFormNotification(numbrz);
+        return true;
+
+
+        }
+   }  
+
+   else
+   {
+
+   Xrm.Page.getControl(lookupAttribute).clearNotification();
+   Xrm.Page.ui.clearFormNotification(numbrz);
+   return true;
+
+   }
+
+}

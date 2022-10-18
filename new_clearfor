@@ -1,0 +1,28 @@
+function clearfor() 
+{
+
+var noopp= Xrm.Page.getAttribute("new_noopportunitiy" ).getValue();
+
+if (noopp== 0) //new_noopportunitiy
+{
+//Xrm.Page.getAttribute("new_for").setValue(null)
+
+
+Xrm.Page.getControl("new_for").setVisible(false);
+
+//savco()
+
+}
+
+else 
+
+{
+Xrm.Page.getControl("new_for").setVisible(true);
+
+}
+}
+
+//function savco()
+//{
+//Xrm.Page.data.entity.save();
+//}

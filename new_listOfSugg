@@ -1,0 +1,112 @@
+function listOfSugg() {
+    // List of sample cities names to suggest
+    sugg = [
+    { name: 'Teamwork Fundamentals', country: '', code: '' },
+    { name: 'المعايير العلمية لإعداد الهياكل التنظيمية', country: '', code: '' },
+    { name: 'Maximizing Benefit through Risk Management', country: '', code: '' },
+    { name: 'Basic Principles of Occupational Hygiene', country: '', code: '' },
+    { name: 'Common Reporting Standard (CRS)', country: '', code: '' },
+    { name: 'Recruiting', country: '', code: '' },
+    { name: 'تهيئة المعينين الجدد', country: '', code: '' },
+    { name: 'الأمن والسلامة في المواقع الإنشائية', country: '', code: '' },
+    { name: 'Working Under Pressure', country: '', code: '' },
+    { name: 'CAMS Review Course', country: '', code: '' },
+    { name: 'HSSE Training & Awareness', country: '', code: '' },
+    { name: 'Anti- Money Laundering & Combating the Financing of Terrorism (as per CBK, CMA & DFSA Regulations) Training Course', country: '', code: '' },
+    { name: 'مهارات تنظيم وادارة الفعاليات الاعلامية واللقاءات الصحفية', country: '', code: '' },
+    { name: 'الأساليب المميزة لتنمية مهارات أمين سر مجلس الإدارة', country: '', code: '' },
+    { name: 'Introduction to Accounting & Finance', country: '', code: '' },
+    { name: 'General Services Policies and Procedures Operating Manual', country: '', code: '' },
+    { name: 'مستقبل الإعلام ووسائل التواصل الاجتماعي بين الشباب', country: '', code: '' },
+    { name: 'Food Safety Management System (FSMS) Awareness ', country: '', code: '' },
+    { name: 'Creative Thinking', country: '', code: '' },
+    { name: 'مكافحة عمليات غسل الأموال وتمويل الإرهاب', country: '', code: '' },
+    { name: 'المنهج المتكامل في التحول المالي الحالي إلى النظام المالي الجديد', country: '', code: '' },
+    { name: 'Know Your Customer', country: 'Vietnam', code: '0011' },
+    { name: 'Anti-Money Laundering and Combating the Financing of Terrorism (AML/CFT) Awareness', country: '', code: '' },
+    { name: 'Business Planning and Strategy', country: '', code: '' },
+    { name: 'Certified Anti-Money Laundering Specialist (CAMS)', country: '', code: '' },
+    { name: 'Professional Office Manager (Endorsed by ILM)', country: '', code: '' },
+    { name: 'IFRS 9 Financial Instruments', country: '', code: '' },
+    { name: 'Corporate Finance and Valuation', country: '', code: '' },
+    { name: 'ادارة التغيير', country: '', code: '' },
+    { name: 'Internal Auditor - ISO 9001', country: '', code: '' },
+    { name: 'بناء فريق عمل ناجح', country: '', code: '' },
+    { name: 'البرنامج المتكامل لأعضاء مجلس الإدارة', country: '', code: '' },
+    { name: 'وضع خطط العمل بالشكل الذي يعكس جميع الأعمال المطلوب تنفيذه', country: '', code: '' },
+    { name: 'Corporate Governance', country: '', code: '' },
+    { name: 'The 6 Challenges Facing Leaders (Accredited by Wolverhampton University – UK)', country: '', code: '' },
+    { name: 'FATCA & CRS training course', country: '', code: '' },
+    { name: 'Drain - depressurize; isolate plant startup and shutdown', country: '', code: '' },
+    { name: 'Failure Analysis and Reporting', country: '', code: '' },
+    { name: '(الولاءالوظيفي (الفئة التنفيذية', country: '', code: '' },
+    { name: 'IFRS Updates', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'Guidelines to Prepare System Integrated Reports', country: '', code: '' },
+    { name: 'Contract Negotiation – Legal Perspective ', country: '', code: '' },
+    { name: 'Pipeline Design and Analysis Foundations', country: '', code: '' },
+    { name: 'أساسيات المحاسبة الحكومية', country: '', code: '' },
+    { name: 'FIDIC and Other Model Contracts and International Contract Laws Advanced', country: '', code: '' },
+    { name: 'Radiation', country: '', code: '' },
+    { name: 'دور قطاع الميزانية في التحول من النظام المالي القديم الي النظام المالي الجديد', country: '', code: '' },
+    { name: 'MS Office Tools', country: '', code: '' },
+    { name: 'الحوكمة المؤسسية وأثرها على ممارسات التدقيق', country: '', code: '' },
+    { name: 'AML/ CFT', country: '', code: '' },
+    { name: 'التجربة اليابانية في الإدارة كايزن', country: '', code: '' },
+    { name: 'المالية لغير الماليين', country: '', code: '' },
+    { name: 'Competency Based Interview & Selection for HR Professionals', country: '', code: '' },
+    { name: 'Labor Law', country: '', code: '' },
+    { name: 'HR Executive (ESLSCA)', country: '', code: '' },
+    { name: 'Managing Customers for Competitive Advantage', country: '', code: '' },
+    { name: 'Sign Language', country: '', code: '' },
+    { name: 'ILM Endorsed Office Manager', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    { name: 'IFRS 9', country: '', code: '' },
+    ];
+    var keyPressFcn = function (ext) {
+        try {
+            var userInput = Xrm.Page.getControl("new_subject").getValue();
+            resultSet = {
+                results: new Array(),
+                commands: {
+                    id: "city",
+                    icon: "../WebResources/new_interest.png",
+                    //This will add the Link at the bottom of the auto complete search result
+                    label: "",
+                    //action: function () {
+                    //    //specify the action that you want to perform on click of New Link
+                    //    window.open("https://crmtrial12.crm5.dynamics.com");
+                    //}
+                }
+            };
+            var userInputLowerCase = userInput.toLowerCase();
+            for (i = 0; i < sugg.length; i++) {
+                if (userInputLowerCase === sugg[i].name.substring(0, userInputLowerCase.length).toLowerCase()) {
+                    resultSet.results.push({
+                        id: i,
+                        fields: [sugg[i].name, sugg[i].country, sugg[i].code, ],
+                        icon: "../WebResources/new_/Images/new_interest.png"
+                        //icon: "http://btk-dyn365/BakerTilly/WebResources/new_interest.png"
+                        
+                        
+                    });
+                }
+                if (resultSet.results.length >= 10) break;
+            }
+            if (resultSet.results.length > 0) {
+                ext.getEventSource().showAutoComplete(resultSet);
+            } else {
+                ext.getEventSource().hideAutoComplete();
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    Xrm.Page.getControl("new_subject").addOnKeyPress(keyPressFcn);
+}

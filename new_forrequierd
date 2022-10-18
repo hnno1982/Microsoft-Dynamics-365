@@ -1,0 +1,24 @@
+function forrequierd() {
+
+ var noopportunitiy= Xrm.Page.getAttribute("new_noopportunitiy").getValue();
+
+ var oppfor= Xrm.Page.getAttribute("new_for").getValue();
+
+ if (noopportunitiy == 1  )
+{       
+
+Xrm.Page.getAttribute("new_for").setRequiredLevel("required"); // Business Required
+
+}
+
+else
+{
+       Xrm.Page.getAttribute("new_for").setRequiredLevel("none"); //Not Required
+
+}
+}
+
+
+
+
+

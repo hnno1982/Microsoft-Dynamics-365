@@ -1,0 +1,11 @@
+function contracul() {
+    var lookup = Xrm.Page.getAttribute("new_interestcategory").getValue();
+    if (lookup != null) {
+        if (lookup[0].name == "خدمات التدريب") {
+            Xrm.Page.getControl("new_typeofcontract").setVisible(false);
+        }
+        else {
+            Xrm.Page.getControl("new_typeofcontract").setVisible(false);
+        }
+    }
+}
