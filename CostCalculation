@@ -1,0 +1,116 @@
+using System;
+using System.Activities;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Workflow;
+
+namespace SelectedTimeValidation
+{
+    public class CostCalculation : CodeActivity
+    {
+        [Input("Duration")]
+        [RequiredArgument]
+        public InArgument<double> _Duration { get; set; }
+
+        [Input("Role")]
+        [ReferenceTarget("bookableresourcecategory")]
+        public InArgument<EntityReference> _Role { get; set; }
+
+        [Input("OU")]
+        [ReferenceTarget("msdyn_organizationalunit")]
+        public InArgument<EntityReference> _OU { get; set; }
+
+        [Input("PL")]
+        [ReferenceTarget("pricelevel")]
+        public InArgument<EntityReference> _PL { get; set; }
+
+
+
+        [Output("Cost")]
+        public OutArgument<decimal> _Cost { get; set; }
+
+
+        //[Output("test")]
+        //public OutArgument<decimal> test { get; set; }
+
+
+
+        protected override void Execute(CodeActivityContext executionContext)
+        {
+            IWorkflowContext context = executionContext.GetExtension<IWorkflowContext>();
+            IOrganizationServiceFactory serviceFactory = executionContext.GetExtension<IOrganizationServiceFactory>();
+            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+
+            //Retrive PriceList GUID
+            EntityReference _PriceList = _PL.Get<EntityReference>(executionContext);
+            string _PLGUID = _PriceList.Id.ToString();
+            //string _PLNM = _PriceList.Name.ToString();
+
+            //test.Set(executionContext, _PLGUID);
+
+            //Retrive OU GUID
+            EntityReference _ORG = _OU.Get<EntityReference>(executionContext);
+            string _OUGUID = _ORG.Id.ToString();
+            //string _OUNM = _ORG.Name.ToString();
+
+            //test1.Set(executionContext, _OUGUID);
+
+            //Retrive ROLE GUID
+            EntityReference _RL = _Role.Get<EntityReference>(executionContext);
+            string _RLGUID = _RL.Id.ToString();
+            //string _RLNM = _RL.Name.ToString();
+
+            //test2.Set(executionContext, _RLGUID);
+
+            //Duration Value
+            //decimal DU = _Duration.Get<decimal>(executionContext);
+            object DU = _Duration.Get<object>(executionContext);
+
+
+            string xml = "<fetch top='1'  version='1.0' output-format='xml-platform' mapping='logical' aggregate='true'>" +
+                 "<entity name='msdyn_resourcecategorypricelevel'>" +
+                       "<attribute name='msdyn_price' alias='priceValue' aggregate='max'/>" +
+                         "<filter type='and'>" +
+                         "<condition attribute='msdyn_pricelist' operator='eq' value= '{" + _PLGUID + "}' uitype='pricelevel' />" +
+                         "<condition attribute='msdyn_resourcecategory' operator='eq' value= '{" + _RLGUID + "}' uitype='bookableresourcecategory'/>" +
+                         "<condition attribute='msdyn_organizationalunit' operator='eq' value= '{" + _OUGUID + "}'  uitype='msdyn_organizationalunit'/>" +
+
+                         //"<condition attribute='msdyn_pricelist' operator='eq' value= '{fbc63b31-714b-ec11-8c62-6045bd8c14ce}'/>" +
+                         //"<condition attribute='msdyn_resourcecategory' operator='eq' value= '{b21db1e0-095b-ec11-8f8f-000d3a2f83e9}'/>" +
+                         //"<condition attribute='msdyn_organizationalunit' operator='eq' value= '{99354a5f-c54a-ec11-8c62-6045bd8c14ce}'/>" +
+
+                         "</filter>" +
+                 "</entity>" +
+             "</fetch>";
+
+
+            //Cost.Set(executionContext, 0);
+            //decimal _Cost = 0;
+
+
+
+            EntityCollection result = service.RetrieveMultiple(new FetchExpression(xml));
+            foreach (var c in result.Entities)
+            {
+                //string _SPrice = c.Attributes["msdyn_priceValue"].ToString();
+
+                decimal _Price = ((Money)((AliasedValue)c["priceValue"]).Value).Value;
+
+                ////test.Set(executionContext, _SPrice);
+
+                //decimal _CDU = Decimal.Divide(Convert.ToDecimal(DU) , Convert.ToDecimal(60 * 0.1));
+
+                ////double _Price = Convert.ToDouble(_SPrice); 
+                //_Cost = _Price * _CDU;
+
+
+                //Cost.Set(executionContext, _CDU); // Duration
+                //Cost.Set(executionContext, _Cost);
+                _Cost.Set(executionContext, _Price); // Price
+                //test.Set(executionContext, _CDU);
+            }
+
+
+        }
+    }
+}
