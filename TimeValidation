@@ -1,0 +1,105 @@
+using System;
+using System.Activities;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Workflow;
+
+namespace SelectedTimeValidation
+{
+    public class TimeValidation : CodeActivity
+    {
+        [Input("Date")]
+        [RequiredArgument]
+        public InArgument<DateTime> _Date { get; set; }
+
+        [Input("SDate")]
+        [RequiredArgument]
+        public InArgument<DateTime> _SDate { get; set; }
+
+        [Input("User")]
+        [ReferenceTarget("systemuser")]
+        public InArgument<EntityReference> _User { get; set; }
+
+        [Input("Time Entry")]
+        [ReferenceTarget("msdyn_timeentry")]
+        public InArgument<EntityReference> _teGUID { get; set; }
+
+        [Output("IN")]
+        public OutArgument<bool> IN { get; set; }
+
+        protected override void Execute(CodeActivityContext executionContext)
+        {
+            IWorkflowContext context = executionContext.GetExtension<IWorkflowContext>();
+            IOrganizationServiceFactory serviceFactory = executionContext.GetExtension<IOrganizationServiceFactory>();
+            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+
+            //Retrive User GUID
+            EntityReference _UserID = _User.Get<EntityReference>(executionContext);
+            string _UserGUID = _UserID.Id.ToString();
+            string _UserNM = _UserID.Name.ToString();
+
+            //Retrive Time Entry GUID
+            EntityReference _tmID = _teGUID.Get<EntityReference>(executionContext);
+            string _timeGUID = _tmID.Id.ToString();
+            //string _timeNM = _tmID.Name.ToString();
+
+            //Get the date and format it and adding 3 hours to date to get exact selected date
+            DateTime DFOR = _Date.Get<DateTime>(executionContext);
+            DateTime AH2Date = DFOR.AddHours(3);
+            string FormattedDate = AH2Date.Date.ToString("yyyy-MM-dd");
+
+            DateTime SD = _SDate.Get<DateTime>(executionContext);
+            DateTime SDAH = SD.AddHours(3);
+            ////string SDT = SDAH.ToString("HHmm");
+            string SDT = SDAH.ToString("HH:mm");
+            ////double DSDT = Convert.ToDouble(SDT);
+
+            TimeSpan now = TimeSpan.Parse(SDT);
+
+            string xml = "<fetch version='1.0' output-format='xml-platform' mapping='logical'>" +
+                 "<entity name='msdyn_timeentry'>" +
+                       "<attribute name='msdyn_start'/>" +
+                       "<attribute name='msdyn_end'/>" +
+                         "<filter type='and'>" +
+                               "<condition attribute='msdyn_date' operator='on' value= '" + FormattedDate + "' />" +
+                               "<condition attribute='ownerid' operator='eq' value= '{" + _UserGUID + "}' uitype='systemuser' />" +
+                               "<condition attribute='msdyn_timeentryid' operator='ne' value= '{" + _timeGUID + "}' uitype='msdyn_timeentry' />" +
+                         "</filter>" +
+                 "</entity>" +
+             "</fetch>";
+
+            Double efo = service.RetrieveMultiple(new FetchExpression(xml)).Entities.Count;
+
+            IN.Set(executionContext, false);
+            EntityCollection result = service.RetrieveMultiple(new FetchExpression(xml));
+
+            foreach (var c in result.Entities)
+            {
+
+                DateTime xSDT = Convert.ToDateTime(c.Attributes["msdyn_start"]);
+                DateTime xSDAH = xSDT.AddHours(3);
+                ////string xxSDT = xSDAH.ToString("HHmm");
+                string xxSDT = xSDAH.ToString("HH:mm");
+                ////double xDSDT = Convert.ToDouble(xxSDT);
+                TimeSpan start = TimeSpan.Parse(xxSDT);
+
+                DateTime xEDT = Convert.ToDateTime(c.Attributes["msdyn_end"]);
+                DateTime xEDAH = xEDT.AddHours(3);
+                ////string xxEDT = xEDAH.ToString("HHmm");
+                string xxEDT = xEDAH.ToString("HH:mm");
+                ////double xDEDT = Convert.ToDouble(xxEDT);
+                TimeSpan end = TimeSpan.Parse(xxEDT);
+
+                ////if (DSDT > xDSDT && DSDT < xDEDT  && efo > 1)
+                ////{
+                ////    IN.Set(executionContext, true);
+                ////}
+
+                if ((now >= start) && (now < end) && (efo > 1))
+                {
+                    IN.Set(executionContext, true);
+                }
+            }
+        }
+    }
+}
