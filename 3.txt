@@ -1,0 +1,33 @@
+setspn –A MSSQLSvc/CRM-SQL:1433 TZOOKI\sqlsvc
+setspn –A MSSQLSvc/CRM-SQL.tzooki.com:1433 TZOOKI\sqlsvc
+
+
+
+
+
+setspn –A MSSQLSvc/BTK-DYNSQL:1433 BAKERTILLYKW\sqlsrv?setspn –A MSSQLSvc/BTK-DYNSQL.bakertilly.com.kw:1433 BAKERTILLYKW\sqlsrv
+
+
+
+MSSQLSvc/BTK-DYNSQL:1433?MSSQLSvc/BTK-DYNSQL.bakertilly.com.kw:1433
+
+
+
+
+setspn –A MSSQLSvc/CRM-SQL:1433 TZOOKI\sqlsvc
+setspn –A MSSQLSvc/BTK-DYNSQL:1433 TZOOKI\sqlsvc
+setspn –A MSSQLSvc/BTK-DYNSQL:1433 TZOOKI\sqlsvc
+
+
+
+setspn -Q http/BTK-DYNSQL
+
+
+setspn -D http/<FQDN> <domain>\<account>
+
+setspn -r  MSSQLSvc/BTK-DYNSQL.bakertilly.com.kw:1433 BAKERTILLYKW\sqlsrv
+
+
+SETSPN -D HTTP/BTK-DYNSQL BTK-DYNSQL
+
+SETSPN -S HTTP/BTK-DYNSQL BAKERTILLYKW\sqlsrv

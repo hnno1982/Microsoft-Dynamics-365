@@ -1,0 +1,31 @@
+mail.bakertilly.com.kw
+
+bakertilly-com-kw.mail.protection.outlook.com
+
+
+
+137.135.139.160
+
+xcrmadmin@bakertilly.com.kw
+smtp.office365.com
+
+P@ssw0rd_()20
+
+
+Failure sending mail: Error in processing. The server response was:
+ 5.7.3 STARTTLS is required to send mail 
+[AM4PR05CA0029.eurprd05.prod.outlook.com]Mail will not be resent. (587)
+
+Please share office 360 account or open it
+please connect azure db
+this is local db oar zure db
+
+this server hosted on azure servers vm 
+ok
+did you read the eeor from ssrs or from some log file?
+can you open eeeor log f
+ile
+
+
+brother control with you btw its easy to open it like this and then you can see whaterver you need its not log or two its as you see per day trying sending email and faild so each day wehave new one
+
