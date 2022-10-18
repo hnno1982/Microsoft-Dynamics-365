@@ -1,0 +1,76 @@
+function showHideCampaignsSection() {
+    var type = Xrm.Page.getAttribute("type").getValue();
+    var nme = Xrm.Page.getAttribute("listname").getValue();
+    var CMP = Xrm.Page.getAttribute("new_createcampaign").getValue();
+
+
+    if (type == 1) {
+        Xrm.Page.ui.tabs.get("Summary").sections.get("campaigns").setVisible(false);
+
+        try
+        { Xrm.Page.ui.process.setVisible(true); }
+
+        catch (ex)
+        { }
+
+        if (nme == "New-Campaign-Name") {
+            Xrm.Page.getAttribute("listname").setValue(null);
+        }
+
+
+
+        if (CMP == 1) {
+            Xrm.Page.ui.tabs.get("Summary").sections.get("notes").setVisible(true);
+
+                                          // Xrm.Page.getControl("new_trainingprogram").setVisible(false);
+           Xrm.Page.getAttribute("description").setRequiredLevel("required");
+
+            Xrm.Page.getAttribute("new_targetunit").setRequiredLevel("required");
+            Xrm.Page.getAttribute("new_targetservice").setRequiredLevel("required");
+
+        }
+
+        else if (CMP == 0) {
+            Xrm.Page.ui.tabs.get("Summary").sections.get("notes").setVisible(false);
+            Xrm.Page.getAttribute("new_targetunit").setRequiredLevel("none");
+            Xrm.Page.getAttribute("new_targetservice").setRequiredLevel("none");
+           Xrm.Page.getAttribute("new_trainingprogram").setRequiredLevel("none");
+           Xrm.Page.getAttribute("description").setRequiredLevel("none");
+
+try{
+            Xrm.Page.getAttribute("new_targetunit").setValue(null);
+            Xrm.Page.getAttribute("new_targetservice").setValue(null);
+            Xrm.Page.getAttribute("new_trainingprogram").setValue(null);
+}
+catch (ex)
+{
+}
+        }
+
+
+    }
+
+
+    else if (type == 0) {
+        Xrm.Page.ui.tabs.get("Summary").sections.get("campaigns").setVisible(true);
+        Xrm.Page.ui.tabs.get("Summary").sections.get("notes").setVisible(false);
+        try
+        { Xrm.Page.ui.process.setVisible(false); }
+
+
+
+        catch (ex)
+        { }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+

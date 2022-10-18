@@ -1,0 +1,28 @@
+function refreshPage()
+{
+//Xrm.Page.data.save();
+//Xrm.Page.data.entity.save();
+//Xrm.Utility.openEntityForm(Xrm.Page.data.entity.getEntityName(),Xrm.Page.data.entity.getId());
+
+
+
+                    setTimeout
+                    (
+                    function ()
+                    {
+Xrm.Utility.openEntityForm(Xrm.Page.data.entity.getEntityName(),Xrm.Page.data.entity.getId());
+Xrm.Page.data.refresh();
+                    },
+                    500
+                    );
+
+
+
+
+
+
+
+
+
+
+}

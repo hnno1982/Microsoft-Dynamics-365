@@ -1,0 +1,9 @@
+function setnotificatTRUE() {
+
+   var shk = Xrm.Page.getAttribute("new_notifications").getValue()
+
+    if (shk == false || shk == null || shk == 'undefined')
+    {
+        Xrm.Page.getAttribute("new_notifications").setValue(true);
+    }
+}

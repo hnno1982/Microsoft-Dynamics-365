@@ -1,0 +1,17 @@
+function phoncheker() {
+    fonchecker("donotphone");
+}
+
+function fonchecker(lookupSchemaName) {
+    var conrolefe = Xrm.Page.getAttribute(lookupSchemaName).getValue();
+
+    if (conrolefe == 1) {
+        Xrm.Page.ui.setFormNotification(" العميل ليس لديه رغبة في إجراء متابعة معه او إستقبال مكالمات من الشركة ", "WARNING", "8");
+alert("العميل ليس لديه رغبة في إجراء متابعة معه او إستقبال مكالمات من الشركة")
+
+
+    }
+    else {
+        Xrm.Page.ui.clearFormNotification("8");
+    }
+}

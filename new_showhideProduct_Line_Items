@@ -1,0 +1,18 @@
+//hide show section
+
+function showhideProduct_Line_Items() 
+{
+
+var lookupObjValue1 = Xrm.Page.getAttribute("pricelevelid").getValue();             
+
+if (lookupObjValue1 != null && lookupObjValue1 != "") 
+{
+Xrm.Page.ui.tabs.get("Product_Line_Items").setVisible(false);
+}
+
+else
+{ 
+Xrm.Page.ui.tabs.get("Product_Line_Items").setVisible(false); 
+}
+
+}

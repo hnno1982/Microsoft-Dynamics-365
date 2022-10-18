@@ -1,0 +1,26 @@
+function STNULCOUNTRY() 
+{
+         
+        var lookupObjValue1 = Xrm.Page.getAttribute("new_country").getValue();
+        if (lookupObjValue1 == null || lookupObjValue1 == "") 
+        {
+                Xrm.Page.getAttribute("new_inout").setValue(null);
+
+                Xrm.Page.getAttribute("new_accountsegment").setValue(null); 
+                Xrm.Page.getAttribute("new_sector").setValue(null);  
+                Xrm.Page.getAttribute("new_market").setValue(null); 
+
+                Xrm.Page.getControl("new_accountsegment").setDisabled(true);  
+        }         
+
+        else if (lookupObjValue1[0].name != "Kuwait" )
+        {
+                Xrm.Page.getAttribute("new_accountsegment").setValue(null); 
+                Xrm.Page.getAttribute("new_sector").setValue(null);  
+                Xrm.Page.getAttribute("new_market").setValue(null); 
+
+                Xrm.Page.getControl("new_sector").setDisabled(true);  
+                Xrm.Page.getControl("new_market").setDisabled(true);  
+
+        }   
+}

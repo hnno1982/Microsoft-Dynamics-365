@@ -1,0 +1,6 @@
+function setHttp(context) {
+    var webUrl = Xrm.Page.getAttribute(context.getEventSource().getName()).getValue();
+    if (webUrl != null && webUrl.substring(0,7) != "http://" &&  webUrl.substring(0,7) != "https:/") {
+        Xrm.Page.getAttribute(context.getEventSource().getName()).setValue("http://" + webUrl)
+    }
+} 

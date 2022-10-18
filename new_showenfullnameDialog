@@ -1,0 +1,50 @@
+function showenfullnameDialog() {
+        var enfullnamevalue;
+    
+            
+        if (Xrm.Page.context.client.getClient() != "Mobile")
+            {
+            var new_enfristname = Xrm.Page.getAttribute("new_enfristname").getValue();
+            var new_enmiddelname = Xrm.Page.getAttribute("new_enmiddelname").getValue();
+            var new_enlastname = Xrm.Page.getAttribute("new_enlastname").getValue();
+
+
+
+            var enfullname = "";
+            if (new_enfristname != null) {
+            enfullname += new_enfristname + " ";
+            }
+            if (new_enmiddelname != null) {
+            enfullname += new_enmiddelname + " ";
+            }
+            if (new_enlastname != null) {
+            enfullname += new_enlastname;
+            }
+  
+
+            enfullnamevalue = enfullname;
+            }
+
+		Xrm.Page.getAttribute("new_enfullname").setValue(enfullnamevalue);
+
+/////////////////////// on 19 7 2018
+//Xrm.Page.data.entity.save();
+//Xrm.Page.data.save();
+
+        //Xrm.Utility.alertDialog(enfullnamevalue);
+
+
+//test
+Xrm.Page.getAttribute("new_enfullname").setSubmitMode("always");
+
+
+
+
+
+
+
+
+
+
+
+}

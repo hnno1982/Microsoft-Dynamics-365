@@ -1,0 +1,4 @@
+function saveinstruct() {
+//Xrm.Page.getAttribute("new_instructor").setSubmitMode("dirty"); 
+//Xrm.Page.getAttribute("new_lecturerflag").getSubmitMode("never");
+}

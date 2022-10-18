@@ -1,0 +1,9 @@
+
+function OrigintoOnChange() {
+    var obj = Xrm.Page.getAttribute("new_origin");
+    if (obj != null) {
+        //Get OptionSet Text
+        var lookupRecordName = obj.getText();
+        Xrm.Page.getAttribute("new_origname").setValue(lookupRecordName);
+    }
+}

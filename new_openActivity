@@ -1,0 +1,26 @@
+function openActivity()
+{
+	//identify cutsomer if its account or contact 
+	var lookupOb = Xrm.Page.getAttribute("new_customer"); //Check for Lookup Object
+	if (lookupOb != null)
+	{
+		var lookupObValue = lookupOb.getValue(); //Check for Lookup Value
+		if (lookupObValue != null)
+		{
+			try
+			{
+				var lookupEntity = lookupObValue[0].entityType //To get EntityName
+				var potiAccoun = Xrm.Page.getAttribute("new_customer").getValue();
+				var parameters = {};
+				parameters["regardingobjectid_1"] = potiAccoun[0].id;
+				parameters["regardingobjectidname_1"] = potiAccoun[0].name;
+				parameters["regardingobjectidtype_1"] = lookupEntity
+				//Xrm.Utility.openEntityForm("phonecall", null, parameters);
+			}
+			catch (Error)
+			{
+				alert("error")
+			}
+		}
+	}
+}

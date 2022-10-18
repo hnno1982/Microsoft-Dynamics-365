@@ -1,0 +1,61 @@
+function openDialogPOUP() {
+    var lookupObj = Xrm.Page.getAttribute("to") //Check for Lookup Object
+    if (lookupObj != null && lookupObj != undefined) {
+        var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+        if (lookupObjValue != null && lookupObjValue != undefined) {
+            try {
+                var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                lookupRecordName = lookupObjValue[0].name; //To get record Name 
+            }
+            catch (ex)
+            { }
+
+            if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null && lookupEntityType != undefined) {
+                //Xrm.Utility.alertDialog("Entity Type : " + lookupEntityType + "\nRecord GUID : " + lookupRecordGuid + "\nRecord Name : " + lookupRecordName, null);
+                if (lookupEntityType === "contact") 
+				{
+
+					try
+					{
+						var id = Xrm.Page.data.entity.getId();
+						var tek = Xrm.Page.getAttribute("new_requestforupdate").getValue();
+						if (tek == 1) 
+						{
+							window.open("http://dyn365/BakerTilly/cs/dialog/rundialog.aspx?DialogId=%7bA35461C7-20F1-4DB7-BD84-0801D037D632%7d&EntityName=phonecall&ObjectId=" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=no,top=300,left=700,width=600,height=400");
+						}
+onSave()
+					}
+
+					catch(ex)
+					{}
+
+                }
+
+                else if (lookupEntityType === "account") 
+				{
+					try
+					{
+						var id = Xrm.Page.data.entity.getId();
+						var tek = Xrm.Page.getAttribute("new_requestforupdate").getValue();
+						if (tek == 1) 
+						{
+							window.open("http://dyn365/BakerTilly/cs/dialog/rundialog.aspx?DialogId=%7b8CC718AC-3AFC-4EB6-819A-566A8905D825%7d&EntityName=phonecall&ObjectId=" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=no,top=300,left=700,width=600,height=400");
+						}
+onSave()
+					}
+
+					catch(ex)
+					{}
+
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+

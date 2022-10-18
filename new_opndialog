@@ -1,0 +1,17 @@
+function openDialog() {
+    try
+    {
+    var estrev = Xrm.Page.getAttribute("new_estimatedrevenue").getValue();
+    var brkevn = Xrm.Page.getAttribute("new_breakevenrevenue").getValue();
+    var tatus = Xrm.Page.getAttribute("statecode").getValue();
+    var formContext = ExecutionContextObj.getFormContext(); 
+
+    if (estrev >= brkevn && tatus == 0 && formContext  != 1) {
+        var urlod = Xrm.Page.getAttribute("new_urldialog").getValue();
+        window.open(urlod, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=700,width=400,height=400");
+    }
+    }
+
+    catch(ex)
+    {}
+}

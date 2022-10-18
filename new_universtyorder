@@ -1,0 +1,34 @@
+function universtyorder()
+{
+    debugger;
+    if (Xrm.Page.getControl("new_univorinstitsel") != null && Xrm.Page.getControl("new_univorinstitsel") !=undefined)
+    {
+        Xrm.Page.getControl("new_univorinstitsel").addPreSearch(function () {
+        addLookupFilter();
+        });
+    }
+}
+
+function addLookupFilter() 
+{
+    var fetchXml = "";
+    var fortype = Xrm.Page.getAttribute("new_academytype").getValue();
+    var fortype1 = Xrm.Page.getAttribute("new_earnedfrom").getValue()[0].name;
+    var fortype2 = Xrm.Page.getAttribute("new_earnedfrom").getValue()[0].id;
+
+    if (fortype == 100000000 && fortype1 != null && fortype1 !=undefined)
+    {
+        fetchXml = "<filter type='and'><condition attribute='new_univorinstit' operator='eq' value='100000000' /><condition attribute='new_universitylocation' operator='eq' uiname='" + fortype1 + "' uitype='new_country' value='" + fortype2 + "' /></filter>";
+        Xrm.Page.getControl("new_univorinstitsel").addCustomFilter(fetchXml);
+    }
+    else if (fortype == 100000001 && fortype1 != null && fortype1 !=undefined)
+    {
+        fetchXml = "<filter type='and'><condition attribute='new_univorinstit' operator='eq' value='100000001' /><condition attribute='new_universitylocation' operator='eq' uiname='" + fortype1 + "' uitype='new_country' value='" + fortype2 + "' /></filter>";
+        Xrm.Page.getControl("new_univorinstitsel").addCustomFilter(fetchXml);
+    }
+    else if (fortype == 100000002 && fortype1 != null && fortype1 !=undefined)
+    {
+        fetchXml = "<filter type='and'><condition attribute='new_universitylocation' operator='eq' uiname='" + fortype1 + "' uitype='new_country' value='" + fortype2 + "' /></filter>";
+        Xrm.Page.getControl("new_univorinstitsel").addCustomFilter(fetchXml);    
+    }
+}

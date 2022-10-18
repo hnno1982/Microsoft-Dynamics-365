@@ -1,0 +1,19 @@
+function loktyp()
+{
+    var formType = Xrm.Page.ui.getFormType(); //get the form type
+    var entity = Xrm.Page.data.entity.getEntityName();
+
+
+    if (formType != 1)
+    {
+        if (entity == "new_interest")
+        {
+            return false; // Hide button
+        }
+
+        //else
+        //{
+        //    return true; //Show button
+        //}
+    }
+}

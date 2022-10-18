@@ -1,0 +1,40 @@
+function plorder() {
+    debugger;
+
+    if (Xrm.Page.getControl("pricelevelid") != null && Xrm.Page.getControl("pricelevelid") != undefined) {
+        Xrm.Page.getControl("pricelevelid").addPreSearch(function () { addLookupFilter(); });
+    }
+}
+
+
+function addLookupFilter() {
+
+    var fetchXml = "";
+    var fortype = Xrm.Page.getAttribute("new_for").getValue();
+
+    if (fortype == 100000001) {
+
+        fetchXml = "<filter type='and'><condition attribute='name' operator='ne' value='خدمات التدريب' /></filter>";
+        Xrm.Page.getControl("pricelevelid").addCustomFilter(fetchXml);
+
+    }
+
+    else if (fortype == 100000000) {
+
+        fetchXml = "<filter type='and'><condition attribute='name' operator='eq' value='خدمات التدريب' /></filter>";
+        Xrm.Page.getControl("pricelevelid").addCustomFilter(fetchXml);
+
+    }
+
+    else if (fortype == 100000003) {
+
+        fetchXml = "<filter type='and'><condition attribute='name' operator='ne' value='إدارة التأكيد' /></filter>";
+        Xrm.Page.getControl("pricelevelid").addCustomFilter(fetchXml);
+
+    }
+
+
+
+    else { }
+
+}

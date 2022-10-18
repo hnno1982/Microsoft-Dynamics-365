@@ -1,0 +1,16 @@
+ function ToggleSection (tabName, sectionName, isVisible) 
+ {
+    var tabs = Xrm.Page.ui.tabs.get();
+    for (var i in tabs) {
+        var tab = tabs[i];
+        if (tab.getLabel() === tabName) {
+            var sections = tab.sections.get();
+            for (var s in sections) {
+                var section = sections[s];
+                if (section.getLabel() === sectionName) {
+                    section.setVisible(isVisible);
+                }
+            }
+        }
+    }
+}

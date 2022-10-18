@@ -1,0 +1,15 @@
+function reddiURL()
+{
+    var url = Xrm.Page.getAttribute("new_subject").getValue();
+
+
+
+var parameters = {};
+parameters["formid"] = "b053a39a-041a-4356-acef-ddf00182762b";
+parameters["name"] = "Test";
+parameters["telephone1"] = "(425) 555-1234";
+Xrm.Utility.openEntityForm("account", null, parameters);
+
+
+
+}

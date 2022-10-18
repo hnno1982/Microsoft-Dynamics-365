@@ -1,0 +1,36 @@
+function SetLookupNullBasedOnTwooptionVal() {
+    //if (Xrm.Page.getControl("new_notfound") != null) { //Replace Twooption field Name
+
+
+    
+        if (Xrm.Page.getAttribute("new_notfound").getSelectedOption().value != "0") 
+        { // Yes
+            //var lookupObject = Xrm.Page.getAttribute("new_account"); // Replace lookup field name
+            //if (lookupObject != null) 
+            //{
+
+
+                Xrm.Page.getAttribute("new_account").setValue(null);//Replace lookup field name
+                Xrm.Page.getControl("new_account").setVisible(false);
+                Xrm.Page.getAttribute("new_account").setRequiredLevel("none"); // not Business Required
+
+                Xrm.Page.getAttribute("new_companyname").setValue(null);
+                Xrm.Page.getControl("new_companyname").setVisible(true);
+                Xrm.Page.getAttribute("new_companyname").setRequiredLevel("required"); // Business Required
+                
+            //}
+        }
+
+        if (Xrm.Page.getAttribute("new_notfound").getSelectedOption().value != "1") 
+        { // NO   
+
+
+                Xrm.Page.getControl("new_companyname").setVisible(false);
+                Xrm.Page.getAttribute("new_companyname").setValue(null);
+                Xrm.Page.getAttribute("new_companyname").setRequiredLevel("none"); // not Business Required
+
+                Xrm.Page.getAttribute("new_account").setRequiredLevel("required"); //Business Required
+                Xrm.Page.getControl("new_account").setVisible(true);   
+        }
+    //}
+}

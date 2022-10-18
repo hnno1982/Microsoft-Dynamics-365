@@ -1,0 +1,15 @@
+function seteconsector() {
+    debugger;
+    if (Xrm.Page.getControl("new_economicsector") != null && Xrm.Page.getControl("new_economicsector") != undefined) {
+        Xrm.Page.getControl("new_economicsector").addPreSearch(function () {
+            addLookupFiltersec();
+        });
+    }
+}
+
+
+function addLookupFiltersec() {
+    var fetchXmlsec = "";
+    fetchXmlsec = "<filter type='and'><condition attribute='new_industry' operator='eq' uiname='القطاعات الإقتصادية الرئيسية' uitype='new_economicsector' value='{2C19E125-9B61-E911-B809-0050568DCE2A}' /></filter>";
+    Xrm.Page.getControl("new_economicsector").addCustomFilter(fetchXmlsec);
+}

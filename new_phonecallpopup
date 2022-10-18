@@ -1,0 +1,20 @@
+function pcpoup()
+{
+    setTimeout(function () {
+        var crmContentPnl = parent.parent.document.getElementById("crmContentPanel");
+        for (k = 0; k < crmContentPnl.children.length; k++)
+        {
+            if (crmContentPnl.children[k].style.visibility == "visible" && crmContentPnl.children[k].tagName.toLowerCase() == "iframe")
+            {
+                var notesControl = crmContentPnl.children[k].contentWindow.document.getElementById("notescontrolactivityContainer_notescontrol");
+
+                // phone call
+                notesControl.children[0].children[1].children[0].setAttribute('onclick', 'Mscrm.ActivityContainer.openNewActivityCreateFormInline(4210); return false;');
+
+                // task
+               notesControl.children[0].children[1].children[1].setAttribute('onclick', 'Mscrm.ActivityContainer.openNewActivityCreateFormInline(4212); return false;');
+               break;
+            }
+        }
+     },1000);
+}

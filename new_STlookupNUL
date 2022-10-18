@@ -1,0 +1,19 @@
+//SET LOOKUP TO NULL
+
+function STlookupNUL() 
+{
+
+                Xrm.Page.getAttribute('new_sector').setValue(null);  
+                Xrm.Page.getAttribute('new_market').setValue(null); 
+
+                Xrm.Page.data.entity.attributes.get('new_sector').setRequiredLevel("none");	
+                Xrm.Page.data.entity.attributes.get('new_market').setRequiredLevel("none");	
+
+                Xrm.Page.getControl('new_sector').setDisabled(true);
+                Xrm.Page.getControl('new_market').setDisabled(true);
+            
+}	
+
+
+
+

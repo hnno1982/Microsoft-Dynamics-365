@@ -1,0 +1,15 @@
+function TBD(startDate, endDate)
+{
+    var endDate = Xrm.Page.getAttribute("scheduledend").getValue();
+    var startDate = Xrm.Page.getAttribute("scheduledstart").getValue();
+
+    var count = 0;
+    var curDate = startDate;
+    while (curDate <= endDate) {
+        var dayOfWeek = curDate.getDay();
+        if (!((dayOfWeek == 5) || (dayOfWeek == 6)))
+            count++;
+        curDate.setDate(curDate.getDate() + 1);
+    }
+    Xrm.Page.getAttribute("new_businessdays").setValue(count);
+}

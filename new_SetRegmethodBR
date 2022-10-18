@@ -1,0 +1,14 @@
+function SetRegmethodBR() 
+{
+         
+        var lookupObjValue1 = Xrm.Page.getAttribute("new_programname").getValue();
+        var lookupObjValue2 = Xrm.Page.getAttribute("new_certificatename").getValue();
+
+        if (lookupObjValue1 != 'undefined' && lookupObjValue1 != null && lookupObjValue1 != ""  || lookupObjValue2 != 'undefined' && lookupObjValue2 != null && lookupObjValue2 != ""  ) 
+        {
+               Xrm.Page.getAttribute("new_registrationmethod").setRequiredLevel("required"); // Business Required
+               //Xrm.Page.getControl("new_origin").setDisabled(true);  
+        }         
+
+
+}

@@ -1,0 +1,9 @@
+function removecurrency()
+
+{
+    var field = Xrm.Page.getAttribute("new_professionalfees");
+    if(field)
+    {
+        field.setCurrencySymbol("")//Or any symbol you want
+    }
+}

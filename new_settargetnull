@@ -1,0 +1,5 @@
+function settargetNUL() 
+{
+
+                Xrm.Page.getAttribute('new_targetservice').setValue(null);  
+}

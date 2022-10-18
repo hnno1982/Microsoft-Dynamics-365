@@ -1,0 +1,51 @@
+
+
+function oppnotificationmessage() {
+
+ //var noopportunitiy= Xrm.Page.getAttribute("new_noopportunitiy").getValue();
+
+ var oppfor= Xrm.Page.getAttribute("new_for").getValue();      
+
+if (oppfor == 100000000 ) //Consulting
+{
+
+alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالإستشارات لهذا الكيان");
+Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Consulting opportunities as per DP request. ", "WARNING")
+
+}
+
+else if ( oppfor == 100000001 ) //Traninig
+{
+
+alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالتدريب لهذا الكيان");
+Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Traninig opportunities as per DP request. ", "WARNING")
+
+}
+ 
+else if ( oppfor == 100000002 ) //Consulting & Traninig 
+{
+
+alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة بالإستشارات أو حتى التدريب لهذا الكيان");
+Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Consulting or even Traning opportunities as per DP request. ", "WARNING")
+
+}
+
+
+else if ( oppfor == 100000003 ) //Assurance
+{
+
+alert(" بناء على تعليمات الشريك التنفيذي لا يتم عمل عروض خاصة في مجال التأكيد لهذا الكيان");
+Xrm.Page.ui.setFormNotification("This is a WARNING notification. No Assurance opportunities as per DP request. ", "WARNING")
+
+}
+
+else
+{}
+
+
+}
+
+
+
+
+

@@ -1,0 +1,33 @@
+function setrolebasedonformselection()
+{
+
+var  formType= Xrm.Page.ui.getFormType();
+if(formType == 1)
+{
+    //check if the current form is form need to be displayed based on the value
+     if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() == "Contact")
+    {
+        Xrm.Page.getAttribute("accountrolecode").setValue(2);
+        Xrm.Page.getAttribute("new_fristdepartment").setRequiredLevel("required"); //Business Required
+        Xrm.Page.getAttribute("new_passportexpiredon").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_civilidexpiredon").setRequiredLevel("none"); //not Business Required
+    } //endif
+     if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() == "Lecturer")
+    {
+        Xrm.Page.getAttribute("accountrolecode").setValue(100000000);
+        Xrm.Page.getAttribute("new_professionalfees").setRequiredLevel("required"); // Business Required
+        //Xrm.Page.getAttribute("new_residencelocation").setRequiredLevel("required"); // Business Required
+       // Xrm.Page.getAttribute("telephone2").setRequiredLevel("required"); // Business Required
+        Xrm.Page.getAttribute("new_fristdepartment").setRequiredLevel("none"); // not Business Required
+    } //endif
+     if (Xrm.Page.ui.formSelector.getCurrentItem().getLabel() == "Employee")
+    {
+        Xrm.Page.getAttribute("accountrolecode").setValue(100000002);
+        Xrm.Page.getAttribute("new_professionalfees").setRequiredLevel("none"); // not Business Required
+        Xrm.Page.getAttribute("new_residencelocation").setRequiredLevel("none"); // not Business Required
+        Xrm.Page.getAttribute("telephone2").setRequiredLevel("none"); // not Business Required
+        Xrm.Page.getAttribute("new_fristdepartment").setRequiredLevel("recommended"); // not Business Required
+    } //endif
+
+}
+}

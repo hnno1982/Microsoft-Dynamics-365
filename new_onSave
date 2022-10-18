@@ -1,0 +1,5 @@
+function onSave() {
+Xrm.Page.data.entity.save();
+//Xrm.Page.getAttribute.setSubmitMode("always"); 
+Xrm.Page.data.save();
+}

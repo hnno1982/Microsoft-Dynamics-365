@@ -1,0 +1,206 @@
+
+function PCINTSTRGR() {
+    var formType = Xrm.Page.ui.getFormType();
+
+    if (formType == 1 || formType == 2) {
+    var lookupObj = Xrm.Page.getAttribute("regardingobjectid"); //Check for Lookup Object
+    if (lookupObj != null && lookupObj != undefined) {
+        var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+        if (lookupObjValue != null && lookupObjValue != undefined) {
+            try {
+                var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                lookupRecordName = lookupObjValue[0].name; //To get record Name 
+            }
+            catch (ex)
+            { }
+
+            if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null && lookupEntityType != undefined) {
+                //Xrm.Utility.alertDialog("Entity Type : " + lookupEntityType + "\nRecord GUID : " + lookupRecordGuid + "\nRecord Name : " + lookupRecordName, null);
+                if (lookupEntityType === "new_interest") {
+                    // Get the ID of the Customer 
+                    var fortype1 = Xrm.Page.getAttribute("regardingobjectid").getValue()[0].name;
+                    var fortype2 = Xrm.Page.getAttribute("regardingobjectid").getValue()[0].id;
+
+                    var scFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+                    "<entity name='new_interest'>" +
+                    "<attribute name='new_interestid' />" +
+                    "<attribute name='new_customer' />" +
+                    "<attribute name='new_entitype' />" +
+                    "<filter type='and'>" +
+                    "<condition attribute='new_interestid' operator='eq' uiname='" + fortype1 + "' uitype='new_interest' value='" + fortype2 + "'/>" +
+                    "</filter></entity>" +
+                    "</fetch>";
+
+                    var encodedFetchXml = encodeURI(scFetch);
+                    var queryPath = "/api/data/v8.0/new_interests?fetchXml=" + encodedFetchXml;
+                    var requestPath = Xrm.Page.context.getClientUrl() + queryPath;
+                    var req = new XMLHttpRequest();
+                    req.open("GET", requestPath, true);
+                    req.setRequestHeader("Accept", "application/json");
+                    req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                    //req.setRequestHeader('Prefer', 'odata.include-annotations="*"'); //Orignial 
+                    req.setRequestHeader("Prefer", "odata.include-annotations=\"*\""); //New line 
+                    req.onreadystatechange = function () {
+                        if (this.readyState === 4) {
+                            this.onreadystatechange = null;
+                            if (this.status === 200) {
+                                //alert("200")
+                                var returned = JSON.parse(this.responseText);
+                                var results = returned.value;
+                                for (var i = 0; i < results.length; i++) {
+                                    var cusname = results[i]["_new_customer_value@OData.Community.Display.V1.FormattedValue"]; //Customer Name
+                                    var cusid = results[i]["_new_customer_value"]; //customer ID
+                                    var enty = results[i]["new_entitype"]; //get entity type
+
+                                    try {
+                                        if (enty == "contact") {
+                                            var partyField = Xrm.Page.getAttribute("to");
+                                            var value = new Array()
+                                            value[0] = new Object()
+                                            value[0].id = cusid
+                                            value[0].name = cusname
+                                            value[0].entityType = "contact"
+                                            partyField.setValue(value);
+                                            setPCnumv2()
+                                        }
+
+                                        else if (enty == "account") {
+                                            var partyField = Xrm.Page.getAttribute("to");
+                                            var value = new Array()
+                                            value[0] = new Object()
+                                            value[0].id = cusid
+                                            value[0].name = cusname
+                                            value[0].entityType = "account"
+                                            partyField.setValue(value);
+                                            setPCnumv2()
+                                        }
+                                    }
+
+                                    catch (ex) {
+
+                                    }
+                                }
+                            }
+                            else {
+                                alert(this.statusText);
+                            }
+                        }
+                    };
+                    req.send();
+                }
+            }
+        }
+    }
+}
+}
+
+
+
+
+
+
+
+
+function setPCnumv2() {
+    var formType = Xrm.Page.ui.getFormType();
+
+    if (formType == 1 || formType == 2) {
+        var lookupObj = Xrm.Page.getAttribute("to") //Check for Lookup Object
+        if (lookupObj != null && lookupObj != undefined) {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+            if (lookupObjValue != null && lookupObjValue != undefined) {
+                try {
+                    var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                    lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                    lookupRecordName = lookupObjValue[0].name; //To get record Name 
+                }
+                catch (ex)
+                { }
+
+                if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null && lookupEntityType != undefined) {
+                    //Xrm.Utility.alertDialog("Entity Type : " + lookupEntityType + "\nRecord GUID : " + lookupRecordGuid + "\nRecord Name : " + lookupRecordName, null);
+                    if (lookupEntityType === "contact") {
+
+                        // Get the ID of the Customer 
+                        var fortype1 = Xrm.Page.getAttribute("to").getValue()[0].name;
+                        var fortype2 = Xrm.Page.getAttribute("to").getValue()[0].id;
+                        var ssFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+                        "<entity name='contact'>" +
+                        "<attribute name='mobilephone' />" +
+                        "<filter type='and'>" +
+                        "<condition attribute='contactid' operator='eq' uiname='" + fortype1 + "' uitype='contact' value='" + fortype2 + "'/>" +
+                        "</filter></entity>" +
+                        "</fetch>";
+                        var encodedFetchXml = encodeURI(ssFetch);
+                        var queryPath = "/api/data/v8.0/contacts?fetchXml=" + encodedFetchXml;
+                        var requestPath = Xrm.Page.context.getClientUrl() + queryPath;
+                        var req = new XMLHttpRequest();
+                        req.open("GET", requestPath, true);
+                        req.setRequestHeader("Accept", "application/json");
+                        req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                        req.onreadystatechange = function () {
+                            if (this.readyState === 4) {
+                                this.onreadystatechange = null;
+                                if (this.status === 200) {
+                                    var returned = JSON.parse(this.responseText);
+                                    var results = returned.value;
+                                    for (var i = 0; i < results.length; i++) {
+                                        var contmobilenum = results[i]["mobilephone"];
+                                        Xrm.Page.getAttribute("phonenumber").setValue(contmobilenum);
+                                        PCINTSTRGR() //call the mob num func
+                                    }
+                                }
+                                else {
+                                    alert(this.statusText);
+                                }
+                            }
+                        };
+                        req.send();
+
+                    }
+
+                    else if (lookupEntityType === "account") {
+                        // Get the ID of the Account 
+                        var fortype1 = Xrm.Page.getAttribute("to").getValue()[0].name;
+                        var fortype2 = Xrm.Page.getAttribute("to").getValue()[0].id;
+                        var sFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+                        "<entity name='account'>" +
+                        "<attribute name='telephone1' />" +
+                        "<filter type='and'>" +
+                        "<condition attribute='accountid' operator='eq' uiname='" + fortype1 + "' uitype='account' value='" + fortype2 + "'/>" +
+                        "</filter></entity>" +
+                        "</fetch>";
+                        var encodedFetchXml = encodeURI(sFetch);
+                        var queryPath = "/api/data/v8.0/accounts?fetchXml=" + encodedFetchXml;
+                        var requestPath = Xrm.Page.context.getClientUrl() + queryPath;
+                        var req = new XMLHttpRequest();
+                        req.open("GET", requestPath, true);
+                        req.setRequestHeader("Accept", "application/json");
+                        req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                        req.onreadystatechange = function () {
+                            if (this.readyState === 4) {
+                                this.onreadystatechange = null;
+                                if (this.status === 200) {
+                                    var returned = JSON.parse(this.responseText);
+                                    var results = returned.value;
+                                    for (var i = 0; i < results.length; i++) {
+                                        var contmobilenum = results[i]["telephone1"];
+                                        Xrm.Page.getAttribute("phonenumber").setValue(contmobilenum);
+                                        PCINTSTRGR() //call the mob num func
+                                    }
+                                }
+                                else {
+                                    alert(this.statusText);
+                                }
+                            }
+                        };
+                        req.send();
+                    }
+                }
+            }
+        }
+    }
+}
+
+

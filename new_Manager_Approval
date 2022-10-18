@@ -1,0 +1,42 @@
+function Manager_Approval() {
+    //ManagerApproved_Value = Xrm.Page.getAttribute("ownerid").getValue();
+    //if (ManagerApproved_Value)
+    //{
+
+        //var formContext = executionContext.getFormContext();
+        //var userSettings = Xrm.Utility.getGlobalContext().userSettings;
+        //var currentUserId = userSettings.userId;
+        var currentUserId = Xrm.Page.context.getUserId()
+        var SalesApprovalManager_Id = Xrm.Page.getAttribute("ownerid").getValue();
+
+        if (currentUserId && SalesApprovalManager_Id && SalesApprovalManager_Id[0].id == currentUserId)
+        {
+            Xrm.Utility.confirmDialog("Are you sure you want to approve this request?",
+            //Confirm Dialog Success Callback
+            function () {
+                Xrm.Utility.alertDialog("Request Approved Successfully",
+                //Alert Dialog Ok Button Callback
+                function () {
+                    //
+                });
+            },
+            //Confirm Dialog Close Callback
+            function () {
+                Xrm.Utility.alertDialog("Request Aborted",
+                //Alert Dialog Ok Button Callback
+                function () {
+                    //
+                });
+            });
+        }
+        else {
+            //Xrm.Page.getAttribute(new_managerapproved).setValue(false);
+            //Xrm.Page.ui.setFormNotification("You are not listed as the 'Approval Manager' on this Contract.", "ERROR", "managerapprovalerror");
+        }
+    //}
+}
+
+
+
+//https://community.dynamics.com/365/b/learncrminfingertips/archive/2019/02/17/manager-approval-process-in-dynamics-crm
+//http://howto-mscrm.com/2017/11/dynamics-365-v9-0-xrm-navigation-namespace-methods-part-1.html

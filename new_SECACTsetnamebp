@@ -1,0 +1,43 @@
+//set name text
+
+function SECACTsetnamebp() 
+{
+
+
+var subvalue;
+                
+if (Xrm.Page.context.client.getClient() != "Mobile")
+{
+
+var lookupObjValue1 = Xrm.Page.getAttribute("new_securitiesactivities");
+
+if (lookupObjValue1 != null && lookupObjValue1 != "") 
+{
+var interestcategor = lookupObjValue1.getValue();//Check for Lookup Value
+}
+
+
+else if(lookupObjValue1 == ""){Xrm.Page.getAttribute("new_securitiesactivities").setValue(null); }
+
+
+if (interestcategor != null && interestcategor != "")
+{
+var lookupRecordName1 = interestcategor[0].name; //To get record Name
+} 
+else if(interestcategor == ""){Xrm.Page.getAttribute("new_securitiesactivities").setValue(null); }
+ 
+            var sub = "";
+            if (lookupRecordName1 != null && lookupRecordName1 != "") {
+            sub += lookupRecordName1;
+            }
+  
+            subvalue = sub;
+}
+
+		    Xrm.Page.getAttribute("new_name").setValue(subvalue);
+
+
+
+}
+
+

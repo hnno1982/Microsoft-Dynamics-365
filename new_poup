@@ -1,0 +1,12 @@
+function OpenLookup(objecttypecode) {
+var DialogOptions = new Xrm.DialogOptions();
+DialogOptions.width = 800;
+DialogOptions.height = 600;
+var url = serverurl+"/_controls/lookup/lookupsingle.aspx?class=null&objecttypes=" + objecttypecode + "&browse=0&ShowNewButton=0&ShowPropButton=1&DefaultType=0";
+ Xrm.Internal.openDialog(url, DialogOptions, null, null, CallbackFunction);
+ }
+
+ function CallbackFunction(event) {
+   var name = event.items[0].name;
+   var id = items[0].id;
+}

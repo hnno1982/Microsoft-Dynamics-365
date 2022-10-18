@@ -1,0 +1,8 @@
+function setBD()
+{
+var sbd= Xrm.Page.getAttribute("birthdate").getValue();
+if ( sbd !="" && sbd !='undefined' && sbd != null )
+{
+    Xrm.Page.getAttribute("new_inbirthdate").setValue(sbd);
+}
+}

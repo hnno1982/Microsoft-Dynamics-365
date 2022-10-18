@@ -1,0 +1,5 @@
+function settaNUL() 
+{
+
+                Xrm.Page.getAttribute('new_interestservice').setValue(null);  
+}

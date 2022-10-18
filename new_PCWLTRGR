@@ -1,0 +1,48 @@
+function PCWLTRGR() {
+    var formType = Xrm.Page.ui.getFormType();
+
+    if (formType == 1 || formType == 2) {
+        var lookupObj = Xrm.Page.getAttribute("new_callto"); //Check for Lookup Object
+        if (lookupObj != null && lookupObj != undefined) {
+            var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+            if (lookupObjValue != null && lookupObjValue != undefined)
+            {
+                try
+                {
+                    var enty = lookupObjValue[0].entityType, //To get EntityName
+                    cusid = lookupObjValue[0].id, // To get record GUID
+                    cusname = lookupObjValue[0].name; //To get record Name 
+                }
+                catch (ex)
+                { }
+
+                try {
+                    if (enty == "contact") {
+                        var partyField = Xrm.Page.getAttribute("to");
+                        var value = new Array()
+                        value[0] = new Object()
+                        value[0].id = cusid
+                        value[0].name = cusname
+                        value[0].entityType = "contact"
+                        partyField.setValue(value);
+
+                    }
+
+                    else if (enty == "account") {
+                        var partyField = Xrm.Page.getAttribute("to");
+                        var value = new Array()
+                        value[0] = new Object()
+                        value[0].id = cusid
+                        value[0].name = cusname
+                        value[0].entityType = "account"
+                        partyField.setValue(value);
+                    }
+                }
+
+                catch (ex) {
+
+                }
+            }
+        }
+    }
+}

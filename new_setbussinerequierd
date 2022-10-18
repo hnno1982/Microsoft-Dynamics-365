@@ -1,0 +1,290 @@
+function setbussinerequierd() {
+    //var  formType= Xrm.Page.ui.getFormType();
+    //if(formType == 2)
+    //{
+    //check if the current form is form need to be displayed based on the value
+    var val1 = Xrm.Page.getAttribute("accountrolecode")
+    var valval = val1.getValue();
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// lecturer
+
+    if (valval == 100000000) //lecturer 
+    {
+
+        var ABC = Xrm.Page.getAttribute("new_directmanagerid");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_directmanagerid").setValue(null)
+        }
+
+
+        var ABC = Xrm.Page.getAttribute("new_directmanagerid");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_directmanagerid").setValue(null)
+        }
+
+
+        var ABC = Xrm.Page.getAttribute("new_professionalfee");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_professionalfee").setRequiredLevel("required"); // Business Required
+            Xrm.Page.getControl("new_professionalfee").setVisible(true);
+        }
+
+        var ABC = Xrm.Page.getAttribute("telephone2");
+        if (ABC != null) {
+            //Xrm.Page.getAttribute("telephone2").setRequiredLevel("required"); // Business Required
+        }
+
+
+        var ABC = Xrm.Page.getAttribute("new_fristdepartment");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_fristdepartment").setRequiredLevel("recommended"); // not Business Required
+            Xrm.Page.getControl("new_fristdepartment").setVisible(false)
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_seconddepartment");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_seconddepartment").setVisible(false);
+        }
+
+
+        var ABC = Xrm.Page.getAttribute("new_thirddepartment");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_thirddepartment").setVisible(false);
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_firstspecialization");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_firstspecialization").setRequiredLevel("required"); // Business Required
+            Xrm.Page.getControl("new_firstspecialization").setVisible(true); //show
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_yearsofexperience");
+        if (ABC != null) {
+            //Xrm.Page.getAttribute("new_yearsofexperience").setRequiredLevel("required"); // Business Required
+            Xrm.Page.getControl("new_yearsofexperience").setVisible(true); //show
+        }
+
+        Xrm.Page.ui.tabs.get("tab_5").setVisible(true);
+        Xrm.Page.ui.tabs.get("DETAILS_TAB").setVisible(false);
+
+        var ABC = Xrm.Page.getAttribute("new_nationality");
+        if (ABC != null) {
+            // Xrm.Page.getControl("new_nationality").setVisible(false); //show
+            Xrm.Page.getAttribute("new_nationality").setRequiredLevel("none"); // Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_fristlanguage");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_fristlanguage").setVisible(true); //show
+            Xrm.Page.getAttribute("new_fristlanguage").setRequiredLevel("required"); // Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_residencelocation");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_residencelocation").setRequiredLevel("required"); // Business Required
+            //Xrm.Page.getControl("new_residencelocation").setVisible(true); //show
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_directmanagerid");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_directmanagerid").setVisible(false); //hide
+            Xrm.Page.getAttribute("new_directmanagerid").setRequiredLevel("none"); // none Business Required
+        }
+
+        var AB = Xrm.Page.getAttribute("new_employeeusername");
+        if (AB != null) {
+            Xrm.Page.getAttribute("new_employeeusername").setRequiredLevel("none"); // none Business Required
+        }
+
+        var AB = Xrm.Page.getAttribute("birthdate");
+        if (AB != null) {
+            Xrm.Page.getAttribute("birthdate").setRequiredLevel("required"); // Business Required
+        }
+
+        var AB = Xrm.Page.getAttribute("mobilephone");
+        if (AB != null) {
+            Xrm.Page.getAttribute("mobilephone").setRequiredLevel("required"); // Business Required
+        }
+
+
+        //Xrm.Page.data.entity.save()
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// contact
+
+    if (valval == 2) //contact
+    {
+
+        var ABC = Xrm.Page.getAttribute("new_directmanagerid");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_directmanagerid").setValue(null)
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_professionalfees");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_professionalfees").setRequiredLevel("none"); // not Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_residencelocation");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_residencelocation").setRequiredLevel("none"); // not Business Required
+            Xrm.Page.getControl("new_residencelocation").setVisible(false); //hide
+        }
+
+        var ABC = Xrm.Page.getAttribute("telephone2");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("telephone2").setRequiredLevel("none"); // Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_fristdepartment");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_fristdepartment").setRequiredLevel("required"); // Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_firstspecialization");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_firstspecialization").setRequiredLevel("none"); // not Business Required
+            Xrm.Page.getControl("new_firstspecialization").setVisible(false); //hide  
+            Xrm.Page.getAttribute("new_firstspecialization").setValue(null)
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_yearsofexperience");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_yearsofexperience").setRequiredLevel("none"); // not Business Required
+            Xrm.Page.getControl("new_yearsofexperience").setVisible(false); //hide
+            Xrm.Page.getAttribute("new_yearsofexperience").setValue(null)
+        }
+
+        Xrm.Page.ui.tabs.get("tab_5").setVisible(false);
+        Xrm.Page.ui.tabs.get("DETAILS_TAB").setVisible(false);
+
+        var ABC = Xrm.Page.getAttribute("new_employeeusername");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_employeeusername").setRequiredLevel("none"); // none Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_fristlanguage");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_fristlanguage").setVisible(false); //hide
+            Xrm.Page.getAttribute("new_fristlanguage").setRequiredLevel("none"); // non Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_nationality");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_nationality").setVisible(false); //hide
+            Xrm.Page.getAttribute("new_nationality").setRequiredLevel("none"); // non Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_directmanagerid");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_directmanagerid").setVisible(false); //hide
+            Xrm.Page.getAttribute("new_directmanagerid").setRequiredLevel("none"); // none Business Required
+        }
+
+        //Xrm.Page.data.entity.save()
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Employee
+
+    if (valval == 100000002 || valval == 100000003 || valval == 100000004 || valval == 100000005 || valval == 100000006) //Emp, EXemp, Partner, External consultant 
+    {
+
+        var ABC = Xrm.Page.getAttribute("new_professionalfees");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_professionalfees").setRequiredLevel("none"); // not Business Required
+            Xrm.Page.getControl("new_professionalfees").setVisible(false);
+        }
+
+        var ABC = Xrm.Page.getAttribute("telephone2");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("telephone2").setRequiredLevel("none"); // not Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_fristdepartment");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_fristdepartment").setRequiredLevel("none"); // not Business Required
+            Xrm.Page.getControl("new_fristdepartment").setVisible(false);
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_seconddepartment");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_seconddepartment").setVisible(false);
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_thirddepartment");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_thirddepartment").setVisible(false);
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_firstspecialization");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_firstspecialization").setRequiredLevel("none"); // Business Required
+            Xrm.Page.getControl("new_firstspecialization").setVisible(false); //show
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_yearsofexperience");
+        if (ABC != null) {
+            Xrm.Page.getAttribute("new_yearsofexperience").setRequiredLevel("none"); // Business Required
+            Xrm.Page.getControl("new_yearsofexperience").setVisible(false); //show
+        }
+
+        if (valval == 100000002 || valval == 100000006 || valval == 100000003) //emp
+        {
+            var ABC = Xrm.Page.getAttribute("new_employeeusername");
+            if (ABC != null)
+            {
+                Xrm.Page.getAttribute("new_employeeusername").setRequiredLevel("none"); // Business Required
+            }
+
+            var ABC = Xrm.Page.getAttribute("new_directmanagerid");
+            if (ABC != null)
+            {
+                Xrm.Page.getControl("new_directmanagerid").setVisible(true); //show
+            }
+        }
+
+        if (valval != 100000002 && valval != 100000006 && valval != 100000003) //eemp
+        {
+            var ABC = Xrm.Page.getAttribute("new_employeeusername");
+            if (ABC != null) {
+                Xrm.Page.getAttribute("new_employeeusername").setRequiredLevel("none"); // none Business Required
+            }
+
+            var ABC = Xrm.Page.getAttribute("new_directmanagerid");
+            if (ABC != null) {
+                Xrm.Page.getControl("new_directmanagerid").setVisible(false); //hide
+                Xrm.Page.getAttribute("new_directmanagerid").setRequiredLevel("none"); // none Business Required
+                Xrm.Page.getAttribute("new_directmanagerid").setValue(null)
+            }
+
+        }
+
+        Xrm.Page.ui.tabs.get("tab_5").setVisible(false);
+        //removed based on Manal request from tru to fls
+        Xrm.Page.ui.tabs.get("DETAILS_TAB").setVisible(false);
+
+        var ABC = Xrm.Page.getAttribute("new_nationality");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_nationality").setVisible(false); //show
+            Xrm.Page.getAttribute("new_nationality").setRequiredLevel("none"); // Business Required
+        }
+
+
+        var ABC = Xrm.Page.getAttribute("new_residencelocation");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_residencelocation").setVisible(false); //show
+            Xrm.Page.getAttribute("new_residencelocation").setRequiredLevel("none"); // Business Required
+        }
+
+        var ABC = Xrm.Page.getAttribute("new_fristlanguage");
+        if (ABC != null) {
+            Xrm.Page.getControl("new_fristlanguage").setVisible(false); //show
+            Xrm.Page.getAttribute("new_fristlanguage").setRequiredLevel("none"); // Business Required
+        }
+
+
+        //Xrm.Page.data.entity.save()
+    }
+
+    //}
+}

@@ -1,0 +1,39 @@
+
+function wreddiURL() {
+    wautoredi("new_renewedopportunity");
+}
+
+function wautoredi(lookupSchemaName)
+{
+
+    var lookupObj = Xrm.Page.getAttribute(lookupSchemaName); //Check for Lookup Object
+    if (lookupObj != null) {
+        var lookupObjValue = lookupObj.getValue();//Check for Lookup Value
+        if (lookupObjValue != null) {
+            try
+            {
+                var lookupEntityType = lookupObjValue[0].entityType, //To get EntityName
+                    lookupRecordGuid = lookupObjValue[0].id, // To get record GUID
+                    lookupRecordName = lookupObjValue[0].name; //To get record Name 
+            }
+
+            catch (Error)
+            { }
+
+            if (lookupEntityType != null && lookupRecordGuid != null && lookupRecordName != null)
+            {
+                // Get the ID of the Customer 
+                var oppnam = Xrm.Page.getAttribute(lookupSchemaName).getValue()[0].name;
+                var oppid = Xrm.Page.getAttribute(lookupSchemaName).getValue()[0].id;
+
+                var windowOptions = {
+                    openInNewWindow: true
+                };
+                Xrm.Utility.openEntityForm("opportunity", oppid, null, windowOptions);
+
+
+            }
+        }
+
+    }
+}

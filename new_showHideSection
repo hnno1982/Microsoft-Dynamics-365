@@ -1,0 +1,83 @@
+function showHideSection() {
+    var type = Xrm.Page.getAttribute("new_typeofcontract").getValue();
+
+    if (type == 100000000) {
+        Xrm.Page.ui.tabs.get("Summary").sections.get("con").setVisible(true);
+        // Xrm.Page.getAttribute("new_kickoffdate").setRequiredLevel("required"); //Business Required
+        // Xrm.Page.getAttribute("new_kickoffenddate").setRequiredLevel("required"); //Business Required
+        //Xrm.Page.getAttribute("new_from").setRequiredLevel("required"); //Business Required
+        //Xrm.Page.getAttribute("new_to").setRequiredLevel("required"); //Business Required
+        // Xrm.Page.getAttribute("new_courselanguage").setRequiredLevel("required"); //Business Required
+        // Xrm.Page.getAttribute("new_numberofparticipants").setRequiredLevel("required"); //Business Required
+        // Xrm.Page.getAttribute("new_instructorname").setRequiredLevel("required"); //Business Required
+        //Xrm.Page.getAttribute("new_place").setRequiredLevel("required"); //Business Required
+
+        Xrm.Page.ui.tabs.get("Summary").sections.get("bap").setVisible(false);
+        Xrm.Page.getAttribute("new_registrationmethod").setRequiredLevel("none"); //Business Required
+        Xrm.Page.getAttribute("new_programname").setRequiredLevel("none"); //Business Required
+
+        Xrm.Page.getAttribute("new_registrationmethod").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_programname").setValue(null);//Replace lookup field name
+
+    }
+    else if (type == 100000001) {
+        Xrm.Page.ui.tabs.get("Summary").sections.get("con").setVisible(false);
+        Xrm.Page.getAttribute("new_kickoffdate").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_kickoffenddate").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_from").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_to").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_courselanguage").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_numberofparticipants").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_instructorname").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_place").setRequiredLevel("none"); //not Business Required
+
+        Xrm.Page.getAttribute("new_registrationmethod").setRequiredLevel("required"); //Business Required
+        Xrm.Page.getAttribute("new_programname").setRequiredLevel("required"); //Business Required
+
+        Xrm.Page.getAttribute("new_kickoffdate").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_kickoffenddate").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_from").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_to").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_courselanguage").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_numberofparticipants").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_instructorname").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_place").setValue(null);//Replace lookup field name
+
+        Xrm.Page.ui.tabs.get("Summary").sections.get("bap").setVisible(true);
+        //Xrm.Page.getAttribute("new_programname").setRequiredLevel("required"); //Business Required
+
+    }
+
+    else {
+        Xrm.Page.ui.tabs.get("Summary").sections.get("con").setVisible(false);
+        Xrm.Page.getAttribute("new_kickoffdate").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_kickoffenddate").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_from").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_to").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_courselanguage").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_numberofparticipants").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_instructorname").setRequiredLevel("none"); //not Business Required
+        Xrm.Page.getAttribute("new_place").setRequiredLevel("none"); //not Business Required
+
+
+
+        Xrm.Page.getAttribute("new_registrationmethod").setRequiredLevel("none"); //Business Required
+        Xrm.Page.getAttribute("new_programname").setRequiredLevel("none"); //Business Required
+
+        Xrm.Page.getAttribute("new_kickoffdate").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_kickoffenddate").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_from").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_to").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_courselanguage").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_numberofparticipants").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_instructorname").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_place").setValue(null);//Replace lookup field name
+
+        Xrm.Page.getAttribute("new_registrationmethod").setValue(null);//Replace lookup field name
+        Xrm.Page.getAttribute("new_programname").setValue(null);//Replace lookup field name
+
+        Xrm.Page.ui.tabs.get("Summary").sections.get("bap").setVisible(false);
+        //Xrm.Page.getAttribute("new_programname").setRequiredLevel("none"); //not Business Required
+        //Xrm.Page.getAttribute("new_programname").setValue(null);//Replace lookup field name
+    }
+}

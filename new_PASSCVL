@@ -1,0 +1,61 @@
+function PASSCVL(exectionObj) {
+    if (Xrm.Page.data.entity.getId() === null) return;
+
+    var serverUrl = Xrm.Page.context.getClientUrl();
+    var oDataSelect = serverUrl + "/XRMServices/2011/OrganizationData.svc/AnnotationSet?$filter=ObjectId/Id eq guid'" + Xrm.Page.data.entity.getId() + "'&$select=IsDocument,FileName";
+    var allowSave = false;
+    var req = new XMLHttpRequest();
+    req.open("GET", oDataSelect, false);
+    req.setRequestHeader("Accept", "application/json");
+    req.setRequestHeader("Content-Type", "application/json;charset=utf-8");
+    req.onreadystatechange = function () {
+        if (req.readyState === 4) {
+            if (req.status === 200) {
+                var retrieved = JSON.parse(req.responseText).d;
+                for (var i = 0; i < retrieved.results.length; i++) {
+
+                    var str = retrieved.results[i].FileName;
+                    var PASS = str.toLowerCase().includes("passport");
+                    var CVL = str.toLowerCase().includes("civil");
+
+                    if ((retrieved.results[i].IsDocument && (PASS || CVL)))
+                    {
+                        allowSave = true;
+
+                        //var flg = Xrm.Page.getAttribute("new_selfprofile");
+                        //if (flg != null)
+                        //{
+                        //    var flgv = flg.getValue()
+                        //    if (flgv != true)
+                        //    {
+                        //        Xrm.Page.getAttribute("new_selfprofile").setValue(true);
+                        //        Xrm.Page.data.entity.save();
+                        //    }
+                        //}
+
+                        break;
+                    }
+                }
+            }
+        }
+    };
+    req.send();
+
+    if (!allowSave)
+    {
+        Xrm.Page.ui.setFormNotification("Passport or Civil ID attchments is missing for this contact profile, please check the missing attchment and upload it", "INFO", "66");
+
+        //var flg = Xrm.Page.getAttribute("new_selfprofile");
+        //if (flg != null)
+        //{
+        //    var flgv = flg.getValue()
+        //    if (flgv == true)
+        //    {
+        //        Xrm.Page.getAttribute("new_selfprofile").setValue(false);
+        //        Xrm.Page.data.entity.save();
+        //    }
+        //}
+
+    }
+    else { Xrm.Page.ui.clearFormNotification("66"); }
+}

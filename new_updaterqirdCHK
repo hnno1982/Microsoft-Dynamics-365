@@ -1,0 +1,15 @@
+
+
+function updaterqirdCHK() {
+    var flg4 = Xrm.Page.getAttribute("new_flg2").getValue();
+
+    if (flg4 == 4) {
+        Xrm.Page.ui.setFormNotification(" يوجد طلب جاري تنفيذه لتحديث البيانات  ", "WARNING", "10");
+alert("البيانات تحت التحديث")
+
+
+    }
+    else {
+        Xrm.Page.ui.clearFormNotification("10");
+    }
+}

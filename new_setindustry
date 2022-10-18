@@ -1,0 +1,20 @@
+function setindustry() {
+    debugger;
+    if (Xrm.Page.getControl("new_industry") != null && Xrm.Page.getControl("new_industry") != undefined) {
+        Xrm.Page.getControl("new_industry").addPreSearch(function () {
+            addLookupFilter();
+        });
+    }
+}
+
+
+function addLookupFilter() {
+    var fetchXmlind = "";
+    var fortype1 = Xrm.Page.getAttribute("new_economicsector").getValue()[0].name;
+    var fortype2 = Xrm.Page.getAttribute("new_economicsector").getValue()[0].id;
+
+if (fortype1 != null && fortype1 != undefined) {
+    fetchXmlind = "<filter type='and'><condition attribute='new_industry' operator='eq' uiname='" + fortype1 + "' uitype='new_economicsector' value='" + fortype2 + "' /></filter>";
+    Xrm.Page.getControl("new_industry").addCustomFilter(fetchXmlind);
+}
+}

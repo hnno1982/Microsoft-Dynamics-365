@@ -1,0 +1,27 @@
+function nafcontrol() {
+    Xrm.Page.ui.navigation.items.forEach(function (item, index) {
+        var itemLabel = item.getLabel();
+        if (itemLabel == "Work Hours")
+        
+        {
+
+
+       item.setFocus();
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+function openDialogBTN()
+{
+    try
+    {
+        var urlod = Xrm.Page.getAttribute("new_urldialog").getValue();
+        window.open(urlod, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=700,width=400,height=400");
+    }
+
+    catch (ex)
+    { }
+}

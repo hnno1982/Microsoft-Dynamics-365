@@ -1,0 +1,20 @@
+function onsav() 
+{
+    try
+    {
+    var formType = Xrm.Page.ui.getFormType();
+    if (formType == 1 || formType == 2)
+ {
+		  Xrm.Page.ui.controls.get("new_requestforupdate").setDisabled(false)
+}
+
+    }
+
+    catch(ex)
+    {}
+}
+
+
+
+
+

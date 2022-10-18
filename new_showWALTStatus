@@ -1,0 +1,8 @@
+function showWALTStatus(rowData, userLCID)
+{
+            $('span:contains("عقود جديدة")').closest('tr').css('background-color', 'greenyellow')
+            $('span:contains("عقود جديدة")').closest('tr').css('color', 'black')
+
+            $('span:contains("عقود منتهية")').closest('tr').css('background-color', 'red')
+            $('span:contains("عقود منتهية")').closest('tr').css('color', 'black')
+}
